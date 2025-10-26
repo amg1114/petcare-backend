@@ -45,7 +45,11 @@ export class CreateUserDto {
   })
   password: string;
 
-  @ApiProperty({ description: 'Type of the user', example: UserType.CLIENTE })
+  @ApiProperty({
+    description: 'Type of the user',
+    enum: UserType,
+    example: UserType.CLIENTE,
+  })
   @IsNotEmpty()
   @IsEnum(UserType)
   type: UserType;
