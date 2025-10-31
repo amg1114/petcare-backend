@@ -12,7 +12,7 @@ export const DataSourceConfig: DataSourceOptions = {
   username: configService.getOrThrow('DB_USER'),
   password: configService.getOrThrow('DB_PASSWORD'),
   database: configService.getOrThrow('DB_NAME'),
-  entities: [__dirname + '/../**/**/*.entity{.ts,.js}'],
+  entities: [__dirname + '/../**/**/*.orm-entity{.ts,.js}'],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   synchronize: false,
   logging: process.env.NODE_ENV.trim() === 'dev',
