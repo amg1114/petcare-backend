@@ -2,6 +2,7 @@ import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
 import { CreateUserDTO } from '../dto/create-user.dto';
 import { UserEntity } from 'src/users/domain/entities/user.entity';
+import { UserMapper } from 'src/users/infrastructure/mappers/user.mapper';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -18,6 +19,6 @@ export class CreateUserUseCase {
 
     const user = UserEntity.create(dto);
 
-    return this.userRepository.save(user);
+    return UserMapper.toDTO(await this.userRepository.save(user));
   }
 }

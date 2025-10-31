@@ -1,17 +1,37 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateUserDTO } from 'src/users/application/dto/create-user.dto';
+import { UpdateUserDTO } from 'src/users/application/dto/update-user.dto';
 import { CreateUserUseCase } from 'src/users/application/use-cases/create-user.usecase';
-import { UserMapper } from 'src/users/infrastructure/mappers/user.mapper';
+import { UpdateUserUseCase } from 'src/users/application/use-cases/update-user.usecase';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
+  ) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async createUser(@Body() dto: CreateUserDTO) {
-    const user = await this.createUserUseCase.execute(dto);
+    return this.createUserUseCase.execute(dto);
+  }
 
-    return UserMapper.toDTO(user);
+  @Patch(':id')
+  @HttpCode(HttpStatus.OK)
+  async updateUser(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() dto: UpdateUserDTO,
+  ) {
+    return this.updateUserUseCase.execute(id, dto);
   }
 }
