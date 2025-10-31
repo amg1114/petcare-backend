@@ -4,6 +4,7 @@ import { UserORMEntity } from './infrastructure/orm/user.orm-entity';
 import { UsersController } from './presentation/controllers/users.controller';
 import { CreateUserUseCase } from './application/use-cases/create-user.usecase';
 import { UserORMRepository } from './infrastructure/repositories/user.orm-repository';
+import { UpdateUserUseCase } from './application/use-cases/update-user.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserORMEntity])],
@@ -13,6 +14,7 @@ import { UserORMRepository } from './infrastructure/repositories/user.orm-reposi
       useClass: UserORMRepository,
     },
     CreateUserUseCase,
+    UpdateUserUseCase,
   ],
   controllers: [UsersController],
   exports: [],
