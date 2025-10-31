@@ -6,6 +6,7 @@ import { CreateUserUseCase } from './application/use-cases/create-user.usecase';
 import { UserORMRepository } from './infrastructure/repositories/user.orm-repository';
 import { UpdateUserUseCase } from './application/use-cases/update-user.usecase';
 import { DeleteUserUseCase } from './application/use-cases/delete-user.usecase';
+import { GetUserUseCase } from './application/use-cases/get-user.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserORMEntity])],
@@ -17,6 +18,7 @@ import { DeleteUserUseCase } from './application/use-cases/delete-user.usecase';
     CreateUserUseCase,
     UpdateUserUseCase,
     DeleteUserUseCase,
+    GetUserUseCase,
   ],
   controllers: [UsersController],
   exports: [],
