@@ -43,8 +43,13 @@ export class UserORMRepository implements UserRepository {
    * @returns The saved user entity.
    */
   async save(user: UserEntity) {
-    const savedEntity = await this.userRepository.save(user);
+    if (!user.id) {
+      const newUserEntity = this.userRepository.create(user);
+      const savedEntity = await this.userRepository.save(newUserEntity);
+      return UserMapper.toDomain(savedEntity);
+    }
 
+    const savedEntity = await this.userRepository.save(user);
     return UserMapper.toDomain(savedEntity);
   }
 
