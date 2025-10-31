@@ -25,12 +25,12 @@ export class UserMapper {
   static toDTO(domainEntity: UserEntity): UserResponseDTO {
     const dto = new UserResponseDTO();
 
-    dto.id = domainEntity.id!;
+    dto.id = domainEntity.id ?? '';
     dto.email = domainEntity.email;
     dto.name = domainEntity.name;
     dto.phone = domainEntity.phone;
     dto.type = domainEntity.type;
-    dto.createdAt = domainEntity.createdAt!;
+    dto.createdAt = domainEntity.createdAt ?? null;
 
     return dto;
   }

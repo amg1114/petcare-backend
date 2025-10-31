@@ -68,6 +68,9 @@ export class UserORMRepository implements UserRepository {
     await this.userRepository.update(id, user);
     const updatedUser = await this.userRepository.findOne({ where: { id } });
 
+    if (!updatedUser) {
+      return null;
+    }
     return UserMapper.toDomain(updatedUser);
   }
 
