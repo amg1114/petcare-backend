@@ -41,6 +41,11 @@ export class UserEntity {
     );
   }
 
+  /**
+   * Reconstitute a user entity from its properties.
+   * @param params The properties of the user.
+   * @returns The reconstituted user entity.
+   */
   static reconstitute(params: UserEntityProps): UserEntity {
     return new UserEntity(
       params.id,
