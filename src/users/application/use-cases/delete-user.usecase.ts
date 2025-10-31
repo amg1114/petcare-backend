@@ -1,10 +1,16 @@
-import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Inject,
+  NotFoundException,
+  Injectable,
+} from '@nestjs/common';
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
 
+@Injectable()
 export class DeleteUserUseCase {
   constructor(
     @Inject('UserRepository')
-    private userRepository: UserRepository,
+    private readonly userRepository: UserRepository,
   ) {}
 
   async execute(userId: string): Promise<void> {
@@ -17,7 +23,5 @@ export class DeleteUserUseCase {
     if (!result) {
       throw new ConflictException('Failed to delete user');
     }
-
-    return;
   }
 }

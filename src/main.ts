@@ -16,7 +16,7 @@ function setupSwagger(app: INestApplication) {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const configService = new ConfigService();
+  const configService = app.get(ConfigService);
 
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api/v1');
