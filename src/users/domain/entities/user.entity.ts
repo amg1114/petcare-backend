@@ -13,7 +13,7 @@ export interface UserEntityProps {
 
 export class UserEntity {
   constructor(
-    public readonly id: string | null,
+    public readonly id: string | undefined,
     public name: string,
     public email: string,
     public password: string,
@@ -32,7 +32,7 @@ export class UserEntity {
     props: Omit<UserEntityProps, 'id' | 'createdAt' | 'deletedAt'>,
   ): UserEntity {
     return new UserEntity(
-      null,
+      undefined,
       props.name,
       props.email,
       props.password,
