@@ -1,3 +1,4 @@
+import { UserType } from 'src/users/domain/value-objects/user-type.enum';
 import {
   Column,
   Entity,
@@ -23,8 +24,8 @@ export class UserORMEntity {
   @Column({ nullable: true })
   phone: string;
 
-  @Column()
-  type: string;
+  @Column({ type: 'enum', enum: UserType, default: UserType.BASIC })
+  type: UserType;
 
   @CreateDateColumn()
   createdAt: Date;
