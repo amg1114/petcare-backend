@@ -1,4 +1,4 @@
-import { UserType } from 'src/users/domain/value-objects/user-type.enum';
+import { UserType } from '../../domain/value-objects/user-type.enum';
 import {
   Column,
   Entity,
