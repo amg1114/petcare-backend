@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { CreateUserDTO } from 'src/users/application/dto/create-user.dto';
 import { UpdateUserDTO } from 'src/users/application/dto/update-user.dto';
 import { CreateUserUseCase } from 'src/users/application/use-cases/create-user.usecase';
@@ -16,6 +17,7 @@ import { DeleteUserUseCase } from 'src/users/application/use-cases/delete-user.u
 import { UpdateUserUseCase } from 'src/users/application/use-cases/update-user.usecase';
 
 @Controller('users')
+@ApiTags('Users')
 export class UsersController {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
@@ -25,12 +27,15 @@ export class UsersController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Create a new user' })
   async createUser(@Body() dto: CreateUserDTO) {
     return this.createUserUseCase.execute(dto);
   }
 
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Update an existing user' })
+  @ApiParam({ name: 'id', description: 'UUID of the user to update' })
   async updateUser(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() dto: UpdateUserDTO,
@@ -40,6 +45,8 @@ export class UsersController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Delete a user' })
+  @ApiParam({ name: 'id', description: 'UUID of the user to delete' })
   async deleteUser(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.deleteUserUseCase.execute(id);
   }
