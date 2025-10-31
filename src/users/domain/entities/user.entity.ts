@@ -1,7 +1,7 @@
 import { UserType } from '../value-objects/user-type.enum';
 
 export interface UserEntityProps {
-  id: string | null;
+  id: string | undefined;
   name: string;
   email: string;
   password: string;
@@ -48,7 +48,7 @@ export class UserEntity {
    */
   static reconstitute(params: UserEntityProps): UserEntity {
     return new UserEntity(
-      params.id,
+      params.id ?? undefined,
       params.name,
       params.email,
       params.password,
