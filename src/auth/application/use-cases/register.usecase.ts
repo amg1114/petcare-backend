@@ -28,7 +28,7 @@ export class RegisterUseCase {
     const payload = {
       sub: user.id,
       email: user.email,
-      type: user.type,
+      phone: user.phone,
       name: user.name,
     };
 
