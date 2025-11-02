@@ -6,8 +6,6 @@ import * as bcrypt from 'bcrypt';
 export class PasswordService implements IPasswordService {
   private readonly SALT_ROUNDS = 10;
 
-  constructor() {}
-
   hash(password: string): Promise<string> {
     return bcrypt.hash(password, this.SALT_ROUNDS);
   }

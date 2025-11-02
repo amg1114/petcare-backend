@@ -1,4 +1,4 @@
-import { Inject, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PasswordService } from 'src/auth/infrastructure/services/password.service';
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
@@ -7,6 +7,7 @@ import { AuthResponseDTO } from '../dto/auth-response.dto';
 import { UserMapper } from 'src/users/infrastructure/mappers/user.mapper';
 import { IJwtPayload } from '../interfaces/jwt-payload.interface';
 
+@Injectable()
 export class LoginUseCase {
   constructor(
     @Inject('UserRepository')

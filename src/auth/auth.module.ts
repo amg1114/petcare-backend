@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from 'src/users/users.module';
-import { AuhtController } from './presentation/controllers/auth.controller';
+import { AuthController } from './presentation/controllers/auth.controller';
 import { PasswordService } from './infrastructure/services/password.service';
 import { LoginUseCase } from './application/use-cases/login.usecase';
 import { RegisterUseCase } from './application/use-cases/register.usecase';
@@ -20,7 +20,7 @@ import { GetUserUseCase } from 'src/users/application/use-cases/get-user.usecase
     }),
     UsersModule,
   ],
-  controllers: [AuhtController],
+  controllers: [AuthController],
   providers: [
     {
       provide: 'PasswordService',
