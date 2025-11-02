@@ -42,7 +42,7 @@ export class RegisterDTO {
   @ApiProperty({
     description:
       'The phone number of the user. Use the Colombian format with country code.',
-    example: '+57 123 456 7890',
+    example: '+571234567890',
   })
   @IsPhoneNumber('CO')
   @IsNotEmpty()
