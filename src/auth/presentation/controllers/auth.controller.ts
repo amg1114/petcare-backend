@@ -25,7 +25,7 @@ import { GetUserUseCase } from 'src/users/application/use-cases/get-user.usecase
 
 @Controller('auth')
 @ApiTags('Auth')
-export class AuhtController {
+export class AuthController {
   constructor(
     private readonly loginUseCase: LoginUseCase,
     private readonly registerUseCase: RegisterUseCase,
