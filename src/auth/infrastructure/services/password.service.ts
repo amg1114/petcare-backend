@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PasswordService implements IPasswordService {
-  private readonly SALT_ROUNDS = '10';
+  private readonly SALT_ROUNDS = 10;
 
   constructor() {}
 
