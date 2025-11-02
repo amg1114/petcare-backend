@@ -5,6 +5,8 @@ import { UserRepository } from 'src/users/domain/repositories/user.repository';
 import { RegisterDTO } from '../dto/register.dto';
 import { JwtService } from '@nestjs/jwt';
 import { AuthResponseDTO } from '../dto/auth-response.dto';
+import { UserMapper } from 'src/users/infrastructure/mappers/user.mapper';
+import { IJwtPayload } from '../interfaces/jwt-payload.interface';
 
 @Injectable()
 export class RegisterUseCase {
@@ -23,9 +25,10 @@ export class RegisterUseCase {
     }
 
     const hashedPassword = await this.passwordService.hash(data.password);
-    const user = UserEntity.create({ ...data, password: hashedPassword });
+    const newUser = UserEntity.create({ ...data, password: hashedPassword });
+    const user = await this.userRepository.save(newUser);
 
-    const payload = {
+    const payload: IJwtPayload = {
       sub: user.id,
       email: user.email,
       phone: user.phone,
@@ -34,6 +37,7 @@ export class RegisterUseCase {
 
     return {
       access_token: this.jwtService.sign(payload),
+      user: UserMapper.toDTO(user),
     };
   }
 }
