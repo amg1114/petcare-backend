@@ -8,12 +8,9 @@ import {
   Param,
   ParseUUIDPipe,
   Patch,
-  Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
-import { CreateUserDTO } from 'src/users/application/dto/create-user.dto';
 import { UpdateUserDTO } from 'src/users/application/dto/update-user.dto';
-import { CreateUserUseCase } from 'src/users/application/use-cases/create-user.usecase';
 import { DeleteUserUseCase } from 'src/users/application/use-cases/delete-user.usecase';
 import { GetUserUseCase } from 'src/users/application/use-cases/get-user.usecase';
 import { UpdateUserUseCase } from 'src/users/application/use-cases/update-user.usecase';
@@ -22,18 +19,10 @@ import { UpdateUserUseCase } from 'src/users/application/use-cases/update-user.u
 @ApiTags('Users')
 export class UsersController {
   constructor(
-    private readonly createUserUseCase: CreateUserUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
     private readonly deleteUserUseCase: DeleteUserUseCase,
     private readonly getUserUseCase: GetUserUseCase,
   ) {}
-
-  @Post()
-  @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Create a new user' })
-  async createUser(@Body() dto: CreateUserDTO) {
-    return this.createUserUseCase.execute(dto);
-  }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
