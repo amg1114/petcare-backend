@@ -9,6 +9,7 @@ function setupSwagger(app: INestApplication) {
     .setTitle('PetCare API')
     .setDescription('API documentation for the PetCare application')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
