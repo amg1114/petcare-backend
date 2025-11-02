@@ -4,8 +4,10 @@ import { PasswordService } from 'src/auth/infrastructure/services/password.servi
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
 import { LoginDTO } from '../dto/login.dto';
 import { AuthResponseDTO } from '../dto/auth-response.dto';
+import { UserMapper } from 'src/users/infrastructure/mappers/user.mapper';
+import { IJwtPayload } from '../interfaces/jwt-payload.interface';
 
-export class LogiUseCase {
+export class LoginUseCase {
   constructor(
     @Inject('UserRepository')
     private readonly userRepository: UserRepository,
@@ -26,7 +28,7 @@ export class LogiUseCase {
 
     if (!matchPassword) throw new UnauthorizedException('Invalid credentials');
 
-    const payload = {
+    const payload: IJwtPayload = {
       sub: user.id,
       email: user.email,
       phone: user.phone,
@@ -35,6 +37,7 @@ export class LogiUseCase {
 
     return {
       access_token: this.jwtService.sign(payload),
+      user: UserMapper.toDTO(user),
     };
   }
 }
