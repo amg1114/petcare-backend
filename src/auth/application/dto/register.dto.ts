@@ -5,11 +5,11 @@ import {
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
-  IsStrongPassword,
   MaxLength,
   MinLength,
 } from 'class-validator';
 import { UserType } from 'src/users/domain/value-objects/user-type.enum';
+import { IsUserPassword } from 'src/users/infrastructure/decoratos/user-password.decorator';
 
 @ApiSchema({
   description: 'Data Transfer Object for register a new user',
@@ -36,7 +36,7 @@ export class RegisterDTO {
     description: 'The password of the user',
     example: 'StrongPassword123!',
   })
-  @IsStrongPassword()
+  @IsUserPassword()
   password: string;
 
   @ApiProperty({
