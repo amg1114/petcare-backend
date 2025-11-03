@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { GetUserUseCase } from 'src/users/application/use-cases/get-user.usecase';
 import { SharedModule } from 'src/shared/shared.module';
+import { JwtAuthGuard } from './infrastructure/guards/jwt.guard';
 
 @Module({
   imports: [
@@ -22,7 +23,16 @@ import { SharedModule } from 'src/shared/shared.module';
     UsersModule,
   ],
   controllers: [AuthController],
-  providers: [LoginUseCase, RegisterUseCase, GetUserUseCase, JwtStrategy],
+  providers: [
+    LoginUseCase,
+    RegisterUseCase,
+    GetUserUseCase,
+    JwtStrategy,
+    {
+      provide: 'APP_GUARD',
+      useClass: JwtAuthGuard,
+    },
+  ],
   exports: [JwtStrategy],
 })
 export class AuthModule {}
