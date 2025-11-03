@@ -16,7 +16,7 @@ export class UpdatePasswordUseCase {
     const { password: currentPassword } =
       await this.userRepository.findById(userId);
 
-    const passwordMatch = this.passwordService.compare(
+    const passwordMatch = await this.passwordService.compare(
       data.currentPassword,
       currentPassword,
     );
