@@ -1,5 +1,6 @@
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
-import { IsEmail, IsStrongPassword } from 'class-validator';
+import { IsEmail } from 'class-validator';
+import { IsUserPassword } from 'src/users/infrastructure/decoratos/user-password.decorator';
 
 @ApiSchema({ description: 'Data transfer object for login users' })
 export class LoginDTO {
@@ -14,6 +15,6 @@ export class LoginDTO {
     description: 'The password of the user',
     example: 'StrongPassword123!',
   })
-  @IsStrongPassword()
+  @IsUserPassword()
   password: string;
 }
