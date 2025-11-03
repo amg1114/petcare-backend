@@ -1,5 +1,5 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import { PasswordService } from 'src/auth/infrastructure/services/password.service';
+import { IPasswordService } from 'src/shared/domain/services/password.service.interface';
 import { UserEntity } from 'src/users/domain/entities/user.entity';
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
 import { RegisterDTO } from '../dto/register.dto';
@@ -14,7 +14,7 @@ export class RegisterUseCase {
     @Inject('UserRepository')
     private readonly userRepository: UserRepository,
     @Inject('PasswordService')
-    private readonly passwordService: PasswordService,
+    private readonly passwordService: IPasswordService,
     private readonly jwtService: JwtService,
   ) {}
 
