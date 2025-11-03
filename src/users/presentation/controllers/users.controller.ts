@@ -9,7 +9,12 @@ import {
   ParseUUIDPipe,
   Patch,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CurrentUser } from 'src/auth/infrastructure/decorators/current-user.decorator';
 import { UpdatePasswordDTO } from 'src/users/application/dto/update-password.dto';
 import { UpdateUserDTO } from 'src/users/application/dto/update-user.dto';
@@ -21,6 +26,7 @@ import { UpdateUserUseCase } from 'src/users/application/use-cases/update-user.u
 
 @Controller('users')
 @ApiTags('Users')
+@ApiBearerAuth()
 export class UsersController {
   constructor(
     private readonly updateUserUseCase: UpdateUserUseCase,
