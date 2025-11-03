@@ -6,9 +6,11 @@ import { UserORMRepository } from './infrastructure/repositories/user.orm-reposi
 import { UpdateUserUseCase } from './application/use-cases/update-user.usecase';
 import { DeleteUserUseCase } from './application/use-cases/delete-user.usecase';
 import { GetUserUseCase } from './application/use-cases/get-user.usecase';
+import { SharedModule } from 'src/shared/shared.module';
+import { UpdatePasswordUseCase } from './application/use-cases/update-password.usecase';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserORMEntity])],
+  imports: [TypeOrmModule.forFeature([UserORMEntity]), SharedModule],
   providers: [
     {
       provide: 'UserRepository',
@@ -17,13 +19,9 @@ import { GetUserUseCase } from './application/use-cases/get-user.usecase';
     UpdateUserUseCase,
     DeleteUserUseCase,
     GetUserUseCase,
+    UpdatePasswordUseCase,
   ],
   controllers: [UsersController],
-  exports: [
-    {
-      provide: 'UserRepository',
-      useClass: UserORMRepository,
-    },
-  ],
+  exports: ['UserRepository'],
 })
 export class UsersModule {}
