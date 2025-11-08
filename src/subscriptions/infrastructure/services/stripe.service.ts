@@ -6,7 +6,7 @@ export class StripeService {
   private stripe: Stripe;
 
   constructor(
-    @Inject('STRIPE_API_KEY')
+    @Inject('STRIPE_SECRET_KEY')
     private readonly apiKey: string,
   ) {
     this.stripe = new Stripe(this.apiKey);
