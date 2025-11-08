@@ -4,6 +4,8 @@ import { UsersModule } from 'src/users/users.module';
 import { ConfigService } from '@nestjs/config';
 import { SubscriptionRepositoryImpl } from './infrastructure/repositories/subscription-impl.repository';
 import { StripeService } from './infrastructure/services/stripe.service';
+import { StripePricingService } from './infrastructure/services/stripe-princing.service';
+
 
 @Module({
   controllers: [SubscriptionsController],
@@ -19,7 +21,11 @@ import { StripeService } from './infrastructure/services/stripe.service';
       provide: 'SubscriptionRepository',
       useClass: SubscriptionRepositoryImpl,
     },
+    ConfigService,
     StripeService,
+    StripePricingService,
+    
   ],
+  exports: ['SubscriptionRepository'],
 })
 export class SubscriptionsModule {}
