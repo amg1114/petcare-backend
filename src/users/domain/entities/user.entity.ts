@@ -1,3 +1,4 @@
+import { SubscriptionEntity } from 'src/subscriptions/domain/entities/subscription.entity';
 import { UserType } from '../value-objects/user-type.enum';
 
 export interface UserEntityProps {
@@ -7,21 +8,36 @@ export interface UserEntityProps {
   password: string;
   phone: string;
   type: UserType;
+  stripeCustomerId?: string;
+  subscription?: SubscriptionEntity[];
   createdAt?: Date;
   deletedAt?: Date;
 }
 
 export class UserEntity {
-  constructor(
-    public readonly id: string | undefined,
-    public name: string,
-    public email: string,
-    public password: string,
-    public phone: string,
-    public type: UserType,
-    public createdAt?: Date,
-    public deletedAt?: Date,
-  ) {}
+  id: string | undefined;
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  type: UserType;
+  stripeCustomerId?: string;
+  subscription?: SubscriptionEntity[];
+  createdAt?: Date;
+  deletedAt?: Date;
+
+  constructor(props: UserEntityProps) {
+    this.id = props.id;
+    this.name = props.name;
+    this.email = props.email;
+    this.password = props.password;
+    this.phone = props.phone;
+    this.type = props.type;
+    this.stripeCustomerId = props.stripeCustomerId;
+    this.subscription = props.subscription;
+    this.createdAt = props.createdAt;
+    this.deletedAt = props.deletedAt;
+  }
 
   /**
    * Create a new user entity.
@@ -31,14 +47,10 @@ export class UserEntity {
   static create(
     props: Omit<UserEntityProps, 'id' | 'createdAt' | 'deletedAt'>,
   ): UserEntity {
-    return new UserEntity(
-      undefined,
-      props.name,
-      props.email,
-      props.password,
-      props.phone,
-      props.type,
-    );
+    return new UserEntity({
+      ...props,
+      id: undefined,
+    });
   }
 
   /**
@@ -46,16 +58,10 @@ export class UserEntity {
    * @param params The properties of the user.
    * @returns The reconstituted user entity.
    */
-  static reconstitute(params: UserEntityProps): UserEntity {
-    return new UserEntity(
-      params.id ?? undefined,
-      params.name,
-      params.email,
-      params.password,
-      params.phone,
-      params.type,
-      params.createdAt,
-      params.deletedAt,
-    );
+  static reconstitute(props: UserEntityProps): UserEntity {
+    if (!props.id) {
+      throw new Error('ID is required to reconstitute an user');
+    }
+    return new UserEntity(props);
   }
 }
