@@ -1,3 +1,4 @@
+import { SubscriptionORMEntity } from '../../../subscriptions/infrastructure/orm/subscription.orm-entity';
 import { UserType } from '../../domain/value-objects/user-type.enum';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('users')
@@ -26,6 +28,12 @@ export class UserORMEntity {
 
   @Column({ type: 'enum', enum: UserType, default: UserType.BASIC })
   type: UserType;
+
+  @Column({ unique: true, nullable: true })
+  stripeCustomerId?: string;
+
+  @OneToMany(() => SubscriptionORMEntity, (subscription) => subscription.user)
+  subscriptions?: SubscriptionORMEntity[];
 
   @CreateDateColumn()
   createdAt: Date;
