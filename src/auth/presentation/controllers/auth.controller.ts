@@ -7,7 +7,12 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthResponseDTO } from 'src/auth/application/dto/auth-response.dto';
 import { LoginDTO } from 'src/auth/application/dto/login.dto';
 import { RegisterDTO } from 'src/auth/application/dto/register.dto';
@@ -51,6 +56,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Returns the logged user data profile' })
   @ApiOkResponse({ type: UserResponseDTO })
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   profile(@CurrentUser() currentUser: UserResponseDTO) {
     return this.getUserUseCase.execute(currentUser.id);
   }
