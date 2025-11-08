@@ -15,7 +15,9 @@ export class SubscriptionORMEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => UserORMEntity, (user) => user.subscriptions)
+  @ManyToOne(() => UserORMEntity, (user) => user.subscriptions, {
+    eager: true,
+  })
   user: UserORMEntity;
 
   @Column({ type: 'enum', enum: SubscriptionPlan })
