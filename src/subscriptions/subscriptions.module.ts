@@ -5,11 +5,11 @@ import { ConfigService } from '@nestjs/config';
 import { SubscriptionRepositoryImpl } from './infrastructure/repositories/subscription-impl.repository';
 import { StripeService } from './infrastructure/services/stripe.service';
 import { StripePricingService } from './infrastructure/services/stripe-princing.service';
-
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SubscriptionORMEntity } from './infrastructure/orm/subscription.orm-entity';
 
 @Module({
-  controllers: [SubscriptionsController],
-  imports: [UsersModule],
+  imports: [TypeOrmModule.forFeature([SubscriptionORMEntity]), UsersModule],
   providers: [
     {
       provide: 'STRIPE_SECRET_KEY',
@@ -27,5 +27,6 @@ import { StripePricingService } from './infrastructure/services/stripe-princing.
     
   ],
   exports: ['SubscriptionRepository'],
+  controllers: [SubscriptionsController],
 })
 export class SubscriptionsModule {}
