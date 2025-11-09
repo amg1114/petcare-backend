@@ -5,6 +5,7 @@ import { StripePricingService } from 'src/subscriptions/infrastructure/services/
 import { StripeService } from 'src/subscriptions/infrastructure/services/stripe.service';
 
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
+import { CheckoutSessionDTO } from '../dto/creckout-session-response.dto';
 
 @Injectable()
 export class CreateCheckoutSessionUseCase {
@@ -16,7 +17,10 @@ export class CreateCheckoutSessionUseCase {
     private readonly configService: ConfigService,
   ) {}
 
-  async execute(userId: string, plan: SubscriptionPlan) {
+  async execute(
+    userId: string,
+    plan: SubscriptionPlan,
+  ): Promise<CheckoutSessionDTO> {
     const user = await this.userRepository.findById(userId);
 
     if (!user) {
