@@ -7,6 +7,7 @@ import { StripeService } from './infrastructure/services/stripe.service';
 import { StripePricingService } from './infrastructure/services/stripe-princing.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SubscriptionORMEntity } from './infrastructure/orm/subscription.orm-entity';
+import { CreateCheckoutSessionUseCase } from './application/use-cases/create-checkout-session.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SubscriptionORMEntity]), UsersModule],
@@ -24,7 +25,7 @@ import { SubscriptionORMEntity } from './infrastructure/orm/subscription.orm-ent
     ConfigService,
     StripeService,
     StripePricingService,
-    
+    CreateCheckoutSessionUseCase,
   ],
   exports: ['SubscriptionRepository'],
   controllers: [SubscriptionsController],
