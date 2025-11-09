@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { json } from 'express';
 
 function setupSwagger(app: INestApplication) {
   const config = new DocumentBuilder()
@@ -16,7 +17,9 @@ function setupSwagger(app: INestApplication) {
 }
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    rawBody: true,
+  });
   const configService = app.get(ConfigService);
 
   app.useGlobalPipes(
@@ -25,6 +28,15 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  app.use(
+    json({
+      verify: (req: any, res, buf) => {
+        req.rawBody = buf;
+      },
+    }),
+  );
+
   app.setGlobalPrefix('api/v1');
 
   setupSwagger(app);
