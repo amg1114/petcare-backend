@@ -38,6 +38,19 @@ export class UserORMRepository implements UserRepository {
   }
 
   /**
+   * Find a user by their stripe id.
+   * @param id The stripe id of the user.
+   * @returns The user entity or null if not found.
+   */
+
+  async findByStripeId(id: string): Promise<UserEntity | null> {
+    const user = await this.userRepository.findOneBy({ stripeCustomerId: id });
+
+    if (!user) return null;
+    return UserMapper.toDomain(user);
+  }
+
+  /**
    * Save a user.
    * @param user The user entity to save.
    * @returns The saved user entity.
