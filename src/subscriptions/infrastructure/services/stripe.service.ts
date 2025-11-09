@@ -57,6 +57,35 @@ export class StripeService {
     return session;
   }
 
+  /**
+   * Retrieve a Stripe subscription by its ID.
+   *
+   * Uses the Stripe SDK to fetch the subscription object for the given subscriptionId.
+   *
+   * @param subscriptionId - The Stripe subscription ID (e.g. "sub_XXXXXXXXXXXXX").
+   * @returns A promise that resolves to the Stripe.Subscription object.
+   * @throws Will throw an error if the subscription cannot be retrieved (e.g. invalid ID, not found, or network/Stripe API errors).
+   *
+   * @example
+   * const subscription = await stripeService.getSubscription('sub_1234567890');
+   */
+  async getSubscription(subscriptionId): Promise<Stripe.Subscription> {
+    return this.stripe.subscriptions.retrieve(subscriptionId);
+  }
+
+  /**
+   * Verifies and constructs a Stripe webhook event from the raw request payload and signature.
+   *
+   * Retrieves the STRIPE_WEBHOOK_SECRET from configuration and calls `stripe.webhooks.constructEvent`
+   * to validate the signature and parse the incoming event payload.
+   *
+   * @param rawBody - The raw, unparsed request body as a Buffer (must be the exact bytes received).
+   * @param signature - The value of the `Stripe-Signature` header from the incoming HTTP request.
+   * @returns A promise that resolves to the verified `Stripe.Event`.
+   * @throws {Error} If the `STRIPE_WEBHOOK_SECRET` configuration value is missing (via `getOrThrow`).
+   * @throws {Error} If Stripe's signature verification fails — the thrown error will include
+   *                 the underlying verification error message.
+   */
   async constructWebHookEvent(
     rawBody: Buffer<ArrayBufferLike>,
     signature: string,
