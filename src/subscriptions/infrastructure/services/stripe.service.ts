@@ -1,15 +1,15 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
 
 @Injectable()
 export class StripeService {
   private stripe: Stripe;
 
-  constructor(
-    @Inject('STRIPE_SECRET_KEY')
-    private readonly apiKey: string,
-  ) {
-    this.stripe = new Stripe(this.apiKey);
+  constructor(private readonly configService: ConfigService) {
+    this.stripe = new Stripe(
+      this.configService.getOrThrow<string>('STRIPE_SECRET_KEY'),
+    );
   }
 
   /**
@@ -55,5 +55,26 @@ export class StripeService {
     });
 
     return session;
+  }
+
+  async constructWebHookEvent(
+    rawBody: Buffer<ArrayBufferLike>,
+    signature: string,
+  ): Promise<Stripe.Event> {
+    const webhookSecret = this.configService.getOrThrow<string>(
+      'STRIPE_WEBHOOK_SECRET',
+    );
+
+    try {
+      const event = this.stripe.webhooks.constructEvent(
+        rawBody,
+        signature,
+        webhookSecret,
+      );
+
+      return event;
+    } catch (error: any) {
+      throw new Error(`Webhook signature verfication failed: ${error.message}`);
+    }
   }
 }
