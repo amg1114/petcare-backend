@@ -29,6 +29,8 @@ export class StripePricingService {
   }
 
   getProfessionalPriceId() {
-    return this.configService.getOrThrow<string>('STRIPE_BASIC_PLAN_ID');
+    return this.configService.getOrThrow<string>(
+      'STRIPE_BASIC_PROFESSIONAL_ID',
+    );
   }
 }

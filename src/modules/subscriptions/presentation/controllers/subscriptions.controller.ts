@@ -22,7 +22,7 @@ import { GetCurrentSubscriptionUseCase } from '@modules/subscriptions/applicatio
 import { CancelCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/cancel-current-subscription.usecase';
 import { ReactivateCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/reactivate-current-subscription.usecase';
 
-import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decorators';
+import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decorator';
 
 @Controller('subscriptions')
 @ApiBearerAuth()

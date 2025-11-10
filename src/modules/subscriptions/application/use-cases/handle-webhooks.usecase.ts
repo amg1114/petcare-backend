@@ -1,4 +1,5 @@
 import Stripe from 'stripe';
+import { StripePricingService } from '@/modules/subscriptions/infrastructure/services/stripe-pricing.service';
 
 import { Inject, Injectable, Logger } from '@nestjs/common';
 
@@ -8,7 +9,6 @@ import { SubscriptionEntity } from '@modules/subscriptions/domain/entities/subsc
 import { SubscriptionStatusMapper } from '@modules/subscriptions/infrastructure/mappers/subscription-status.mapper';
 
 import { StripeService } from '@modules/subscriptions/infrastructure/services/stripe.service';
-import { StripePricingService } from '@modules/subscriptions/infrastructure/services/stripe-princing.service';
 
 import { UserRepository } from '@modules/users/domain/repositories/user.repository';
 import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
