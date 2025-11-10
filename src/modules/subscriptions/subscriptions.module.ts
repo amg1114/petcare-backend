@@ -8,7 +8,7 @@ import { StripeService } from './infrastructure/services/stripe.service';
 import { WebhooksController } from './presentation/controllers/webhooks.controller';
 import { SubscriptionORMEntity } from './infrastructure/orm/subscription.orm-entity';
 import { HandleWebhooksUseCase } from './application/use-cases/handle-webhooks.usecase';
-import { StripePricingService } from './infrastructure/services/stripe-princing.service';
+import { StripePricingService } from './infrastructure/services/stripe-pricing.service';
 import { SubscriptionsController } from './presentation/controllers/subscriptions.controller';
 import { CreateCheckoutSessionUseCase } from './application/use-cases/create-checkout-session.usecase';
 import { SubscriptionRepositoryImpl } from './infrastructure/repositories/subscription-impl.repository';
