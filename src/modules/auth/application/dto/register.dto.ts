@@ -11,7 +11,7 @@ import {
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 
 import { UserType } from '@modules/users/domain/value-objects/user-type.enum';
-import { IsUserPassword } from '@modules/users/infrastructure/decoratos/user-password.decorator';
+import { IsUserPassword } from '@modules/users/infrastructure/decorators/user-password.decorator';
 
 @ApiSchema({
   description: 'Data Transfer Object for register a new user',
