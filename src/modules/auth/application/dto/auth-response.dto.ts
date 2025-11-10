@@ -1,4 +1,5 @@
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
+
 import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
 
 @ApiSchema({ description: 'Data transfer object for auth request responses' })

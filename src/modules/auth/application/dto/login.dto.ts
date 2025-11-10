@@ -1,5 +1,7 @@
-import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 import { IsEmail } from 'class-validator';
+
+import { ApiProperty, ApiSchema } from '@nestjs/swagger';
+
 import { IsUserPassword } from '@modules/users/infrastructure/decoratos/user-password.decorator';
 
 @ApiSchema({ description: 'Data transfer object for login users' })

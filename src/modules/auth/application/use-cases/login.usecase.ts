@@ -1,10 +1,14 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { IPasswordService } from '@/modules/shared/domain/services/password.service.interface';
+
+import { JwtService } from '@nestjs/jwt';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+
+import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
+
 import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+
 import { LoginDTO } from '../dto/login.dto';
 import { AuthResponseDTO } from '../dto/auth-response.dto';
-import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
 import { IJwtPayload } from '../interfaces/jwt-payload.interface';
 
 @Injectable()

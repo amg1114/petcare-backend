@@ -1,6 +1,8 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
+
 import { SubscriptionMapper } from '@modules/subscriptions/infrastructure/mappers/subscription.mapper';
+
+import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
 
 @Injectable()
 export class GetCurrentSubscriptionUseCase {

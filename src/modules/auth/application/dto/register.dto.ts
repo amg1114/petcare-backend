@@ -1,4 +1,3 @@
-import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 import {
   IsEmail,
   IsEnum,
@@ -8,6 +7,9 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+
+import { ApiProperty, ApiSchema } from '@nestjs/swagger';
+
 import { UserType } from '@modules/users/domain/value-objects/user-type.enum';
 import { IsUserPassword } from '@modules/users/infrastructure/decoratos/user-password.decorator';
 

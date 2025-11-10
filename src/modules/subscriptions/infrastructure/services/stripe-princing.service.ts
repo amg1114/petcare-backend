@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 
 @Injectable()

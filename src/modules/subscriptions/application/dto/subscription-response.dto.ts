@@ -1,4 +1,5 @@
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
+
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 import { SubscriptionStatus } from '@modules/subscriptions/domain/value-objects/subscription-status.vo';
 

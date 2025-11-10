@@ -1,3 +1,6 @@
+import { CurrentUser } from '@/modules/auth/infrastructure/decorators/current-user.decorator';
+
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
@@ -6,14 +9,13 @@ import {
   HttpStatus,
   Patch,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CurrentUser } from '@/modules/auth/infrastructure/decorators/current-user.decorator';
-import { UpdatePasswordDTO } from '@modules/users/application/dto/update-password.dto';
+
 import { UpdateUserDTO } from '@modules/users/application/dto/update-user.dto';
 import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
+import { UpdatePasswordDTO } from '@modules/users/application/dto/update-password.dto';
 import { DeleteUserUseCase } from '@modules/users/application/use-cases/delete-user.usecase';
-import { UpdatePasswordUseCase } from '@modules/users/application/use-cases/update-password.usecase';
 import { UpdateUserUseCase } from '@modules/users/application/use-cases/update-user.usecase';
+import { UpdatePasswordUseCase } from '@modules/users/application/use-cases/update-password.usecase';
 
 @Controller('users')
 @ApiTags('Users')

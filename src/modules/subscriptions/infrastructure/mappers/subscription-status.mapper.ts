@@ -1,5 +1,6 @@
-import { SubscriptionStatus } from '@modules/subscriptions/domain/value-objects/subscription-status.vo';
 import Stripe from 'stripe';
+
+import { SubscriptionStatus } from '@modules/subscriptions/domain/value-objects/subscription-status.vo';
 
 export class SubscriptionStatusMapper {
   static fromStripe(status: Stripe.Subscription.Status): SubscriptionStatus {

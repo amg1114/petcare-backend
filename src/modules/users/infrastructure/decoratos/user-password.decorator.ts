@@ -1,5 +1,6 @@
-import { applyDecorators } from '@nestjs/common';
 import { IsStrongPassword } from 'class-validator';
+
+import { applyDecorators } from '@nestjs/common';
 
 export function IsUserPassword() {
   return applyDecorators(

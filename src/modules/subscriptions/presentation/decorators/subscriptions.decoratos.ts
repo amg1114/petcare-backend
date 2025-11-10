@@ -1,7 +1,8 @@
 import { applyDecorators, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
-import { CheckoutSessionDTO } from '@modules/subscriptions/application/dto/checkout-session-response.dto';
+
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
+import { CheckoutSessionDTO } from '@modules/subscriptions/application/dto/checkout-session-response.dto';
 
 export function ApiCheckoutSessionEndpoint() {
   return applyDecorators(

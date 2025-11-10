@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
-import { SubscriptionsController } from './presentation/controllers/subscriptions.controller';
-import { UsersModule } from '@modules/users/users.module';
 import { ConfigService } from '@nestjs/config';
-import { SubscriptionRepositoryImpl } from './infrastructure/repositories/subscription-impl.repository';
-import { StripeService } from './infrastructure/services/stripe.service';
-import { StripePricingService } from './infrastructure/services/stripe-princing.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SubscriptionORMEntity } from './infrastructure/orm/subscription.orm-entity';
-import { CreateCheckoutSessionUseCase } from './application/use-cases/create-checkout-session.usecase';
+
+import { UsersModule } from '@modules/users/users.module';
+
+import { StripeService } from './infrastructure/services/stripe.service';
 import { WebhooksController } from './presentation/controllers/webhooks.controller';
+import { SubscriptionORMEntity } from './infrastructure/orm/subscription.orm-entity';
 import { HandleWebhooksUseCase } from './application/use-cases/handle-webhooks.usecase';
+import { StripePricingService } from './infrastructure/services/stripe-princing.service';
+import { SubscriptionsController } from './presentation/controllers/subscriptions.controller';
+import { CreateCheckoutSessionUseCase } from './application/use-cases/create-checkout-session.usecase';
+import { SubscriptionRepositoryImpl } from './infrastructure/repositories/subscription-impl.repository';
 import { GetCurrentSubscriptionUseCase } from './application/use-cases/get-current-subscription.usecase';
 import { CancelCurrentSubscriptionUseCase } from './application/use-cases/cancel-current-subscription.usecase';
 import { ReactivateCurrentSubscriptionUseCase } from './application/use-cases/reactivate-current-subscription.usecase';

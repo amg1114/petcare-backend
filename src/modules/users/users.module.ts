@@ -1,12 +1,14 @@
+import { SharedModule } from '@/modules/shared/shared.module';
+
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { UserORMEntity } from './infrastructure/orm/user.orm-entity';
-import { UsersController } from './presentation/controllers/users.controller';
-import { UserORMRepository } from './infrastructure/repositories/user.orm-repository';
-import { UpdateUserUseCase } from './application/use-cases/update-user.usecase';
-import { DeleteUserUseCase } from './application/use-cases/delete-user.usecase';
 import { GetUserUseCase } from './application/use-cases/get-user.usecase';
-import { SharedModule } from '@/modules/shared/shared.module';
+import { UsersController } from './presentation/controllers/users.controller';
+import { DeleteUserUseCase } from './application/use-cases/delete-user.usecase';
+import { UpdateUserUseCase } from './application/use-cases/update-user.usecase';
+import { UserORMRepository } from './infrastructure/repositories/user.orm-repository';
 import { UpdatePasswordUseCase } from './application/use-cases/update-password.usecase';
 
 @Module({

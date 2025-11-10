@@ -1,4 +1,29 @@
 {
+  "parser": "typescript",
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports"
+  ],
+  "importOrder": [
+    "<BUILTIN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    "^@nestjs/(.*)$",
+    "^@database/(.*)$",
+    "^(@modules)/(.*)/entities/(.*)$",
+    "^(@modules)/(.*)/dtos/(.*)$",
+    "^(@modules)/(.*)/mappers/(.*)$",
+    "^(@modules)/(.*)/usecases/(.*)$",
+    "^(@modules)/(.*)/services/(.*)$",
+    "^(@modules)/(.*)/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortByLength": "asc",
+  "importOrderParserPlugins": [
+    "typescript",
+    "jsx",
+    "classProperties",
+    "decorators-legacy"
+  ]
 }

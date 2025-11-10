@@ -1,7 +1,10 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
-import { UserResponseDTO } from '../dto/user-response.dto';
+
 import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
+
+import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+
+import { UserResponseDTO } from '../dto/user-response.dto';
 
 @Injectable()
 export class GetUserUseCase {

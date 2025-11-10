@@ -1,10 +1,14 @@
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
-import { UserORMEntity } from '../orm/user.orm-entity';
-import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
+
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
+
+import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+
 import { UserMapper } from '../mappers/user.mapper';
+import { UserORMEntity } from '../orm/user.orm-entity';
 
 @Injectable()
 export class UserORMRepository implements UserRepository {
