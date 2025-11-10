@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -16,6 +17,7 @@ import { UserResponseDTO } from 'src/users/application/dto/user-response.dto';
 import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decoratos';
 import { GetCurrentSubscriptionUseCase } from 'src/subscriptions/application/use-cases/get-current-subscription.usecase';
 import { SubscriptionResponseDTO } from 'src/subscriptions/application/dto/subscription-response.dto';
+import { CancelCurrentSubscriptionUseCase } from 'src/subscriptions/application/use-cases/cancel-current-subscription.usecase';
 
 @Controller('subscriptions')
 @ApiBearerAuth()
@@ -24,6 +26,7 @@ export class SubscriptionsController {
   constructor(
     private readonly createCheckoutSessionUseCase: CreateCheckoutSessionUseCase,
     private readonly getCurrentSubscriptionUseCase: GetCurrentSubscriptionUseCase,
+    private readonly cancelCurrentSubscriptionUseCase: CancelCurrentSubscriptionUseCase,
   ) {}
 
   @Get('my/current')
@@ -38,6 +41,20 @@ export class SubscriptionsController {
     user: UserResponseDTO,
   ) {
     return this.getCurrentSubscriptionUseCase.execute(user.id);
+  }
+
+  @Delete('my/current')
+  @ApiOperation({ description: "Cancel the current user's subscription" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns the user's subscription details",
+    type: SubscriptionResponseDTO,
+  })
+  cancelOwnCurrentSubscription(
+    @CurrentUser()
+    user: UserResponseDTO,
+  ) {
+    return this.cancelCurrentSubscriptionUseCase.execute(user.id);
   }
 
   @Get('checkout-session/:plan')
