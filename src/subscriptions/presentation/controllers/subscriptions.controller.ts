@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   ParseEnumPipe,
+  Patch,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -18,6 +19,7 @@ import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decorato
 import { GetCurrentSubscriptionUseCase } from 'src/subscriptions/application/use-cases/get-current-subscription.usecase';
 import { SubscriptionResponseDTO } from 'src/subscriptions/application/dto/subscription-response.dto';
 import { CancelCurrentSubscriptionUseCase } from 'src/subscriptions/application/use-cases/cancel-current-subscription.usecase';
+import { ReactivateCurrentSubscriptionUseCase } from 'src/subscriptions/application/use-cases/reactivate-current-subscription.usecase';
 
 @Controller('subscriptions')
 @ApiBearerAuth()
@@ -27,6 +29,7 @@ export class SubscriptionsController {
     private readonly createCheckoutSessionUseCase: CreateCheckoutSessionUseCase,
     private readonly getCurrentSubscriptionUseCase: GetCurrentSubscriptionUseCase,
     private readonly cancelCurrentSubscriptionUseCase: CancelCurrentSubscriptionUseCase,
+    private readonly reactivateCurrentSubscriptionUseCase: ReactivateCurrentSubscriptionUseCase,
   ) {}
 
   @Get('my/current')
@@ -41,6 +44,20 @@ export class SubscriptionsController {
     user: UserResponseDTO,
   ) {
     return this.getCurrentSubscriptionUseCase.execute(user.id);
+  }
+
+  @Patch('my/current')
+  @ApiOperation({ description: "Reactivate the current user's subscription" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns the user's subscription details",
+    type: SubscriptionResponseDTO,
+  })
+  reactivateOwnCurrentSubscription(
+    @CurrentUser()
+    user: UserResponseDTO,
+  ) {
+    return this.reactivateCurrentSubscriptionUseCase.execute(user.id);
   }
 
   @Delete('my/current')

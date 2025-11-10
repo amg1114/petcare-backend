@@ -62,13 +62,29 @@ export class SubscriptionEntity {
     return new SubscriptionEntity(props);
   }
 
+  get isActive() {
+    return this.status === SubscriptionStatus.ACTIVE;
+  }
+
   get isCanceled() {
     return this.status === SubscriptionStatus.CANCELED;
   }
 
+  get canReactivate() {
+    return !this.isCanceled && this.cancelAtEnd && this.endAt > new Date();
+  }
+
   cancel() {
     if (this.isCanceled) return;
+
     this.status = SubscriptionStatus.CANCELED;
-    this.endAt = new Date(Date.now());
+  }
+
+  reactivate() {
+    if (!this.canReactivate) {
+      throw new Error('This subscription cannot be reactivated');
+    }
+
+    this.cancelAtEnd = false;
   }
 }
