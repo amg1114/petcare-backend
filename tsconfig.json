@@ -15,20 +15,11 @@
       "@/*": [
         "src/*"
       ],
-      "@shared/*": [
-        "src/shared/*"
+      "@modules/*": [
+        "src/modules/*"
       ],
-      "@users/*": [
-        "src/users/*"
-      ],
-      "@auth/*": [
-        "src/auth/*"
-      ],
-      "@subscriptions/*": [
-        "src/subscriptions/*"
-      ],
-      "@config/*": [
-        "src/config/*"
+      "@database/*": [
+        "src/database/*"
       ]
     },
     "incremental": true,
