@@ -61,4 +61,14 @@ export class SubscriptionEntity {
     }
     return new SubscriptionEntity(props);
   }
+
+  get isCanceled() {
+    return this.status === SubscriptionStatus.CANCELED;
+  }
+
+  cancel() {
+    if (this.isCanceled) return;
+    this.status = SubscriptionStatus.CANCELED;
+    this.endAt = new Date(Date.now());
+  }
 }

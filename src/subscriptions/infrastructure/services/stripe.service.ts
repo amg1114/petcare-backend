@@ -73,6 +73,10 @@ export class StripeService {
     return this.stripe.subscriptions.retrieve(subscriptionId);
   }
 
+  async cancelSubscription(subscriptionId: string) {
+    return this.stripe.subscriptions.cancel(subscriptionId);
+  }
+
   /**
    * Verifies and constructs a Stripe webhook event from the raw request payload and signature.
    *

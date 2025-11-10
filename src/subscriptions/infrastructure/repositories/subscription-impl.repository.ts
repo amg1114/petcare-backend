@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ISubscriptionRepository } from 'src/subscriptions/domain/repositories/subscription.repository';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { SubscriptionORMEntity } from '../orm/subscription.orm-entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SubscriptionEntity } from 'src/subscriptions/domain/entities/subscription.entity';
 import { SubscriptionMapper } from '../mappers/subscription.mapper';
+import { SubscriptionStatus } from 'src/subscriptions/domain/value-objects/subscription-status.vo';
 
 @Injectable()
 export class SubscriptionRepositoryImpl implements ISubscriptionRepository {
@@ -68,6 +69,25 @@ export class SubscriptionRepositoryImpl implements ISubscriptionRepository {
   async findByAllUserId(id: string): Promise<SubscriptionEntity[] | null> {
     const subscriptions = await this.subscriptionRepository.findBy({
       user: { id },
+    });
+
+    if (!subscriptions.length) return null;
+
+    return subscriptions.map((item) => SubscriptionMapper.toDomain(item));
+  }
+
+  /**
+   * Find all uncanceled user subscriptions based on user ID
+   * (returns all subscriptions that are not canceled, which may include statuses other than 'active')
+   * @param id user's ID
+   * @returns The user's uncanceled subscriptions or null if nothing was found.
+   */
+  async findAllUncanceledSubscriptions(
+    id: string,
+  ): Promise<SubscriptionEntity[] | null> {
+    const subscriptions = await this.subscriptionRepository.findBy({
+      user: { id },
+      status: Not(SubscriptionStatus.CANCELED),
     });
 
     if (!subscriptions.length) return null;

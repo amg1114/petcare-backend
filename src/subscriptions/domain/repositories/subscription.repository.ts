@@ -8,6 +8,9 @@ export interface ISubscriptionRepository {
   findById(id: string): Promise<SubscriptionEntity | null>;
   findByUserId(id: string): Promise<SubscriptionEntity | null>;
   findByAllUserId(id: string): Promise<SubscriptionEntity[] | null>;
+  findAllUncanceledSubscriptions(
+    id: string,
+  ): Promise<SubscriptionEntity[] | null>;
   findByStripeId(id: string): Promise<SubscriptionEntity | null>;
   update(
     id: string,
