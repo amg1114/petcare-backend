@@ -1,6 +1,6 @@
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 
-import { IsUserPassword } from '@modules/users/infrastructure/decoratos/user-password.decorator';
+import { IsUserPassword } from '@modules/users/infrastructure/decorators/user-password.decorator';
 
 @ApiSchema({ description: 'Data transfer object for update user password' })
 export class UpdatePasswordDTO {
