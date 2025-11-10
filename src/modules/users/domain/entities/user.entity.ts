@@ -1,4 +1,5 @@
 import { SubscriptionEntity } from '@modules/subscriptions/domain/entities/subscription.entity';
+
 import { UserType } from '../value-objects/user-type.enum';
 
 export interface UserEntityProps {

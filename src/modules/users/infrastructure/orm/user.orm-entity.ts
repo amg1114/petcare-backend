@@ -1,5 +1,3 @@
-import { SubscriptionORMEntity } from '../../../subscriptions/infrastructure/orm/subscription.orm-entity';
-import { UserType } from '../../domain/value-objects/user-type.enum';
 import {
   Column,
   Entity,
@@ -8,6 +6,9 @@ import {
   DeleteDateColumn,
   OneToMany,
 } from 'typeorm';
+
+import { UserType } from '../../domain/value-objects/user-type.enum';
+import { SubscriptionORMEntity } from '../../../subscriptions/infrastructure/orm/subscription.orm-entity';
 
 @Entity('users')
 export class UserORMEntity {

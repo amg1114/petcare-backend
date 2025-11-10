@@ -1,3 +1,7 @@
+import { JwtAuthGuard } from '@/modules/auth/infrastructure/guards/jwt.guard';
+import { CurrentUser } from '@/modules/auth/infrastructure/decorators/current-user.decorator';
+
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller,
   Delete,
@@ -9,17 +13,16 @@ import {
   Patch,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { CurrentUser } from '@/modules/auth/infrastructure/decorators/current-user.decorator';
-import { JwtAuthGuard } from '@/modules/auth/infrastructure/guards/jwt.guard';
-import { CreateCheckoutSessionUseCase } from '@modules/subscriptions/application/use-cases/create-checkout-session.usecase';
-import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
+
 import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
-import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decoratos';
-import { GetCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/get-current-subscription.usecase';
+import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 import { SubscriptionResponseDTO } from '@modules/subscriptions/application/dto/subscription-response.dto';
+import { CreateCheckoutSessionUseCase } from '@modules/subscriptions/application/use-cases/create-checkout-session.usecase';
+import { GetCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/get-current-subscription.usecase';
 import { CancelCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/cancel-current-subscription.usecase';
 import { ReactivateCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/reactivate-current-subscription.usecase';
+
+import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decoratos';
 
 @Controller('subscriptions')
 @ApiBearerAuth()

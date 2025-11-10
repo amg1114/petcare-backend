@@ -1,3 +1,5 @@
+import { PublicRoute } from '@/modules/auth/infrastructure/decorators/public-route.decorator';
+
 import {
   Controller,
   Headers,
@@ -7,7 +9,7 @@ import {
   RawBodyRequest,
   Req,
 } from '@nestjs/common';
-import { PublicRoute } from '@/modules/auth/infrastructure/decorators/public-route.decorator';
+
 import { HandleWebhooksUseCase } from '@modules/subscriptions/application/use-cases/handle-webhooks.usecase';
 
 @Controller('webhooks')

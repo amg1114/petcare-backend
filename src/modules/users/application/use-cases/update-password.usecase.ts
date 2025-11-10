@@ -1,7 +1,10 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
-import { UpdatePasswordDTO } from '../dto/update-password.dto';
 import { IPasswordService } from '@/modules/shared/domain/services/password.service.interface';
+
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+
+import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+
+import { UpdatePasswordDTO } from '../dto/update-password.dto';
 
 @Injectable()
 export class UpdatePasswordUseCase {

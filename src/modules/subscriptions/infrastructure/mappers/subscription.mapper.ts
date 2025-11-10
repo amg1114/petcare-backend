@@ -1,7 +1,10 @@
 import { SubscriptionEntity } from '@modules/subscriptions/domain/entities/subscription.entity';
-import { SubscriptionORMEntity } from '../orm/subscription.orm-entity';
+
 import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
+
 import { SubscriptionResponseDTO } from '@modules/subscriptions/application/dto/subscription-response.dto';
+
+import { SubscriptionORMEntity } from '../orm/subscription.orm-entity';
 
 export class SubscriptionMapper {
   static toDomain(ormEntity: SubscriptionORMEntity): SubscriptionEntity {
