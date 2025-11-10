@@ -32,25 +32,9 @@ export class SubscriptionRepositoryImpl implements ISubscriptionRepository {
     return SubscriptionMapper.toDomain(savedEntity);
   }
 
-  /**
-   * Find a subscription based on its ID
-   * @param id The subscription's ID
-   * @returns The subscription data or null if not found
-   */
-  async findById(id: string): Promise<SubscriptionEntity | null> {
-    const subscription = await this.subscriptionRepository.findOneBy({ id });
-
-    if (!subscription) return null;
-
-    return SubscriptionMapper.toDomain(subscription);
-  }
-
-  /**
-   * Find the most recent user subscription based on its user ID
-   * @param id The user's ID
-   * @returns The most recente user's subscription or null if not found
-   */
-  async findByUserId(id: string): Promise<SubscriptionEntity | null> {
+  async findCurrentSubscriptionByUserId(
+    id: string,
+  ): Promise<SubscriptionEntity | null> {
     const subscription = await this.subscriptionRepository.findOne({
       where: { user: { id } },
       order: { createdAt: 'DESC' },
@@ -66,7 +50,7 @@ export class SubscriptionRepositoryImpl implements ISubscriptionRepository {
    * @param id user's ID
    * @returns The user's subscriptions or null if nothing was found.
    */
-  async findByAllUserId(id: string): Promise<SubscriptionEntity[] | null> {
+  async findByUserId(id: string): Promise<SubscriptionEntity[] | null> {
     const subscriptions = await this.subscriptionRepository.findBy({
       user: { id },
     });
@@ -108,34 +92,5 @@ export class SubscriptionRepositoryImpl implements ISubscriptionRepository {
     if (!subscription) return null;
 
     return SubscriptionMapper.toDomain(subscription);
-  }
-
-  /** Update a subscription
-   * @param id The Subscription's ID
-   * @param data he Subscription entity with updated data.
-   * @returns The updated Subscription entity or null if not found.
-   */
-  async update(
-    id: string,
-    data: Partial<SubscriptionEntity>,
-  ): Promise<SubscriptionEntity | null> {
-    const existingSubscription = await this.subscriptionRepository.findOneBy({
-      id,
-    });
-
-    if (!existingSubscription) {
-      return null;
-    }
-
-    await this.subscriptionRepository.update(id, data);
-    const updatedSubscription = await this.subscriptionRepository.findOne({
-      where: { id },
-    });
-
-    if (!updatedSubscription) {
-      return null;
-    }
-
-    return SubscriptionMapper.toDomain(updatedSubscription);
   }
 }

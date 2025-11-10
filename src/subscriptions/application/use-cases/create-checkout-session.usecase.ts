@@ -5,7 +5,7 @@ import { StripePricingService } from 'src/subscriptions/infrastructure/services/
 import { StripeService } from 'src/subscriptions/infrastructure/services/stripe.service';
 
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
-import { CheckoutSessionDTO } from '../dto/creckout-session-response.dto';
+import { CheckoutSessionDTO } from '../dto/checkout-session-response.dto';
 
 @Injectable()
 export class CreateCheckoutSessionUseCase {

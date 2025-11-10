@@ -10,6 +10,7 @@ import { SubscriptionORMEntity } from './infrastructure/orm/subscription.orm-ent
 import { CreateCheckoutSessionUseCase } from './application/use-cases/create-checkout-session.usecase';
 import { WebhooksController } from './presentation/controllers/webhooks.controller';
 import { HandleWebhooksUseCase } from './application/use-cases/handle-webhooks.usecase';
+import { GetCurrentSubscriptionUseCase } from './application/use-cases/get-current-subscription.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SubscriptionORMEntity]), UsersModule],
@@ -29,6 +30,7 @@ import { HandleWebhooksUseCase } from './application/use-cases/handle-webhooks.u
     StripePricingService,
     CreateCheckoutSessionUseCase,
     HandleWebhooksUseCase,
+    GetCurrentSubscriptionUseCase,
   ],
   exports: ['SubscriptionRepository'],
   controllers: [SubscriptionsController, WebhooksController],
