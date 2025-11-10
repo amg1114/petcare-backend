@@ -12,6 +12,7 @@ import { WebhooksController } from './presentation/controllers/webhooks.controll
 import { HandleWebhooksUseCase } from './application/use-cases/handle-webhooks.usecase';
 import { GetCurrentSubscriptionUseCase } from './application/use-cases/get-current-subscription.usecase';
 import { CancelCurrentSubscriptionUseCase } from './application/use-cases/cancel-current-subscription.usecase';
+import { ReactivateCurrentSubscriptionUseCase } from './application/use-cases/reactivate-current-subscription.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SubscriptionORMEntity]), UsersModule],
@@ -33,6 +34,7 @@ import { CancelCurrentSubscriptionUseCase } from './application/use-cases/cancel
     HandleWebhooksUseCase,
     GetCurrentSubscriptionUseCase,
     CancelCurrentSubscriptionUseCase,
+    ReactivateCurrentSubscriptionUseCase,
   ],
   exports: ['SubscriptionRepository'],
   controllers: [SubscriptionsController, WebhooksController],
