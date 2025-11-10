@@ -1,3 +1,19 @@
+// Register tsconfig paths before any imports that might use aliases
+import { register } from 'tsconfig-paths';
+import { join } from 'path';
+
+register({
+  baseUrl: join(__dirname, '../../'),
+  paths: {
+    '@/*': ['src/*'],
+    '@shared/*': ['src/shared/*'],
+    '@users/*': ['src/users/*'],
+    '@auth/*': ['src/auth/*'],
+    '@subscriptions/*': ['src/subscriptions/*'],
+    '@config/*': ['src/config/*'],
+  },
+});
+
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';

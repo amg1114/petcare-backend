@@ -11,6 +11,26 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@users/*": [
+        "src/users/*"
+      ],
+      "@auth/*": [
+        "src/auth/*"
+      ],
+      "@subscriptions/*": [
+        "src/subscriptions/*"
+      ],
+      "@config/*": [
+        "src/config/*"
+      ]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
