@@ -1,6 +1,6 @@
 import { applyDecorators, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
-import { CheckoutSessionDTO } from 'src/subscriptions/application/dto/creckout-session-response.dto';
+import { CheckoutSessionDTO } from 'src/subscriptions/application/dto/checkout-session-response.dto';
 import { SubscriptionPlan } from 'src/subscriptions/domain/value-objects/subscription-plan.vo';
 
 export function ApiCheckoutSessionEndpoint() {

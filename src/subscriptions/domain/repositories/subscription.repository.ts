@@ -5,15 +5,16 @@ import { SubscriptionEntity } from '../entities/subscription.entity';
  */
 export interface ISubscriptionRepository {
   save(subscription: SubscriptionEntity): Promise<SubscriptionEntity>;
-  findById(id: string): Promise<SubscriptionEntity | null>;
-  findByUserId(id: string): Promise<SubscriptionEntity | null>;
-  findByAllUserId(id: string): Promise<SubscriptionEntity[] | null>;
+
+  findByUserId(id: string): Promise<SubscriptionEntity[] | null>;
+
   findAllUncanceledSubscriptions(
     id: string,
   ): Promise<SubscriptionEntity[] | null>;
+
   findByStripeId(id: string): Promise<SubscriptionEntity | null>;
-  update(
+
+  findCurrentSubscriptionByUserId(
     id: string,
-    data: Partial<SubscriptionEntity>,
   ): Promise<SubscriptionEntity | null>;
 }

@@ -7,13 +7,15 @@ import {
   ParseEnumPipe,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CurrentUser } from 'src/auth/infrastructure/decorators/current-user.decorator';
 import { JwtAuthGuard } from 'src/auth/infrastructure/guards/jwt.guard';
 import { CreateCheckoutSessionUseCase } from 'src/subscriptions/application/use-cases/create-checkout-session.usecase';
 import { SubscriptionPlan } from 'src/subscriptions/domain/value-objects/subscription-plan.vo';
 import { UserResponseDTO } from 'src/users/application/dto/user-response.dto';
 import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decoratos';
+import { GetCurrentSubscriptionUseCase } from 'src/subscriptions/application/use-cases/get-current-subscription.usecase';
+import { SubscriptionResponseDTO } from 'src/subscriptions/application/dto/subscription-response.dto';
 
 @Controller('subscriptions')
 @ApiBearerAuth()
@@ -21,7 +23,22 @@ import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decorato
 export class SubscriptionsController {
   constructor(
     private readonly createCheckoutSessionUseCase: CreateCheckoutSessionUseCase,
+    private readonly getCurrentSubscriptionUseCase: GetCurrentSubscriptionUseCase,
   ) {}
+
+  @Get('my/current')
+  @ApiOperation({ description: "Get the current user's subscription" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns the user's subscription details",
+    type: SubscriptionResponseDTO,
+  })
+  getOwnSubscription(
+    @CurrentUser()
+    user: UserResponseDTO,
+  ) {
+    return this.getCurrentSubscriptionUseCase.execute(user.id);
+  }
 
   @Get('checkout-session/:plan')
   @HttpCode(HttpStatus.CREATED)
