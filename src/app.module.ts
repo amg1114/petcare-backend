@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSourceConfig } from './config/data.source';
-import { UsersModule } from './users/users.module';
+import { DataSourceConfig } from '@database/data.source';
+import { UsersModule } from '@modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
-import { SharedModule } from './shared/shared.module';
-import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { AuthModule } from '@modules/auth/auth.module';
+import { SharedModule } from '@modules/shared/shared.module';
+import { SubscriptionsModule } from '@modules/subscriptions/subscriptions.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -23,7 +21,5 @@ import { join } from 'path';
     SharedModule,
     SubscriptionsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
