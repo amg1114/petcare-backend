@@ -4,9 +4,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
+
 import { SubscriptionMapper } from '@modules/subscriptions/infrastructure/mappers/subscription.mapper';
+
 import { StripeService } from '@modules/subscriptions/infrastructure/services/stripe.service';
+
+import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
 
 @Injectable()
 export class CancelCurrentSubscriptionUseCase {

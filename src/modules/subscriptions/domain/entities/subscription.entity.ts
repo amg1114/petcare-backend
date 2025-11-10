@@ -1,4 +1,5 @@
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
+
 import { SubscriptionPlan } from '../value-objects/subscription-plan.vo';
 import { SubscriptionStatus } from '../value-objects/subscription-status.vo';
 

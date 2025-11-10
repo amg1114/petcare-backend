@@ -1,6 +1,8 @@
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
-import { UserORMEntity } from '../orm/user.orm-entity';
+
 import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
+
+import { UserORMEntity } from '../orm/user.orm-entity';
 
 export class UserMapper {
   static toDomain(ormEntity: UserORMEntity): UserEntity {

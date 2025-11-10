@@ -1,11 +1,16 @@
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { IPasswordService } from '@/modules/shared/domain/services/password.service.interface';
-import { UserEntity } from '@modules/users/domain/entities/user.entity';
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
-import { RegisterDTO } from '../dto/register.dto';
+
 import { JwtService } from '@nestjs/jwt';
-import { AuthResponseDTO } from '../dto/auth-response.dto';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
+
+import { UserEntity } from '@modules/users/domain/entities/user.entity';
+
 import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
+
+import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+
+import { RegisterDTO } from '../dto/register.dto';
+import { AuthResponseDTO } from '../dto/auth-response.dto';
 import { IJwtPayload } from '../interfaces/jwt-payload.interface';
 
 @Injectable()

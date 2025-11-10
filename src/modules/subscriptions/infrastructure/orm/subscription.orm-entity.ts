@@ -1,6 +1,3 @@
-import { SubscriptionPlan } from '../../domain/value-objects/subscription-plan.vo';
-import { SubscriptionStatus } from '../../domain/value-objects/subscription-status.vo';
-import { UserORMEntity } from '../../../users/infrastructure/orm/user.orm-entity';
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +6,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { UserORMEntity } from '../../../users/infrastructure/orm/user.orm-entity';
+import { SubscriptionPlan } from '../../domain/value-objects/subscription-plan.vo';
+import { SubscriptionStatus } from '../../domain/value-objects/subscription-status.vo';
 
 @Entity('subscriptions')
 export class SubscriptionORMEntity {
