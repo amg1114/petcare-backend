@@ -11,6 +11,7 @@ import { CreateCheckoutSessionUseCase } from './application/use-cases/create-che
 import { WebhooksController } from './presentation/controllers/webhooks.controller';
 import { HandleWebhooksUseCase } from './application/use-cases/handle-webhooks.usecase';
 import { GetCurrentSubscriptionUseCase } from './application/use-cases/get-current-subscription.usecase';
+import { CancelCurrentSubscriptionUseCase } from './application/use-cases/cancel-current-subscription.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SubscriptionORMEntity]), UsersModule],
@@ -31,6 +32,7 @@ import { GetCurrentSubscriptionUseCase } from './application/use-cases/get-curre
     CreateCheckoutSessionUseCase,
     HandleWebhooksUseCase,
     GetCurrentSubscriptionUseCase,
+    CancelCurrentSubscriptionUseCase,
   ],
   exports: ['SubscriptionRepository'],
   controllers: [SubscriptionsController, WebhooksController],
