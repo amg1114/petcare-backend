@@ -1,8 +1,9 @@
+import { StripePricingService } from '@/modules/subscriptions/infrastructure/services/stripe-pricing.service';
+
 import { ConfigService } from '@nestjs/config';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { StripeService } from '@modules/subscriptions/infrastructure/services/stripe.service';
-import { StripePricingService } from '@modules/subscriptions/infrastructure/services/stripe-princing.service';
 
 import { UserRepository } from '@modules/users/domain/repositories/user.repository';
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';

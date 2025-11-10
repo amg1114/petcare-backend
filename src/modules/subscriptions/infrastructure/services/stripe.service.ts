@@ -14,7 +14,7 @@ export class StripeService {
   }
 
   /**
-   * Creates a new strip customer based on the user data
+   * Creates a new stripe customer based on the user data
    * @param email The user email
    * @param name The user name
    * @returns The stripe user customer ID
@@ -29,11 +29,11 @@ export class StripeService {
   }
 
   /**
-   * Creates a new checkout session for perfom a new Payment
-   * @param customerId The srtripe customer's id
-   * @param priceId The srtripe price's id
+   * Creates a new checkout session for perform a new Payment
+   * @param customerId The stripe customer's id
+   * @param priceId The stripe price's id
    * @param success_url The url to be redirected when payment gets success
-   * @param cancel_url The url to be redirected when payment gets worng
+   * @param cancel_url The url to be redirected when payment gets wrong
    * @returns The stripe session
    */
   async createCheckoutSession(params: {
@@ -70,7 +70,7 @@ export class StripeService {
    * @example
    * const subscription = await stripeService.getSubscription('sub_1234567890');
    */
-  async getSubscription(subscriptionId): Promise<Stripe.Subscription> {
+  async getSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
     return this.stripe.subscriptions.retrieve(subscriptionId);
   }
 
@@ -114,7 +114,9 @@ export class StripeService {
 
       return event;
     } catch (error: any) {
-      throw new Error(`Webhook signature verfication failed: ${error.message}`);
+      throw new Error(
+        `Webhook signature verification failed: ${error.message}`,
+      );
     }
   }
 }
