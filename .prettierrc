@@ -15,6 +15,7 @@
     "^(@modules)/(.*)/mappers/(.*)$",
     "^(@modules)/(.*)/usecases/(.*)$",
     "^(@modules)/(.*)/services/(.*)$",
+    "^(@modules)/(.*)/guards/(.*)$",
     "^(@modules)/(.*)/(.*)$",
     "^[./]"
   ],

@@ -17,12 +17,12 @@ import {
 import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 import { SubscriptionResponseDTO } from '@modules/subscriptions/application/dto/subscription-response.dto';
+import { ApiCheckoutSessionEndpoint } from '@modules/subscriptions/presentation/decorators/subscriptions.decorator';
+import { RequiresSubscription } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
 import { CreateCheckoutSessionUseCase } from '@modules/subscriptions/application/use-cases/create-checkout-session.usecase';
 import { GetCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/get-current-subscription.usecase';
 import { CancelCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/cancel-current-subscription.usecase';
 import { ReactivateCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/reactivate-current-subscription.usecase';
-
-import { ApiCheckoutSessionEndpoint } from '../decorators/subscriptions.decorator';
 
 @Controller('subscriptions')
 @ApiBearerAuth()
@@ -86,5 +86,32 @@ export class SubscriptionsController {
     user: UserResponseDTO,
   ) {
     return this.createCheckoutSessionUseCase.execute(user.id, plan);
+  }
+
+  @Get('protection-test/basic')
+  @RequiresSubscription(SubscriptionPlan.BASIC)
+  @ApiOperation({
+    description: 'Endpoint to test if the require basic subscription works',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Basic subscription access granted',
+  })
+  protectionTestBasic() {
+    return 'Works! Alejandro is the best';
+  }
+
+  @Get('protection-test/professional')
+  @RequiresSubscription(SubscriptionPlan.PROFESSIONAL)
+  @ApiOperation({
+    description:
+      'Endpoint to test if the require professional subscription works',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Professional subscription access granted',
+  })
+  protectionTestProfessional() {
+    return 'Works! Alejandro is the best';
   }
 }
