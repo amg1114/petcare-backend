@@ -1,7 +1,7 @@
 import { JwtAuthGuard } from '@/modules/auth/infrastructure/guards/jwt.guard';
 import { CurrentUser } from '@/modules/auth/infrastructure/decorators/current-user.decorator';
 
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import {
   Controller,
   Delete,
@@ -16,13 +16,19 @@ import {
 
 import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
-import { SubscriptionResponseDTO } from '@modules/subscriptions/application/dto/subscription-response.dto';
-import { ApiCheckoutSessionEndpoint } from '@modules/subscriptions/presentation/decorators/subscriptions.decorator';
 import { RequiresSubscription } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
 import { CreateCheckoutSessionUseCase } from '@modules/subscriptions/application/use-cases/create-checkout-session.usecase';
 import { GetCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/get-current-subscription.usecase';
 import { CancelCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/cancel-current-subscription.usecase';
 import { ReactivateCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/reactivate-current-subscription.usecase';
+import {
+  ApiCancelOwnSubscription,
+  ApiCheckoutSessionEndpoint,
+  ApiGetOwnSubscription,
+  ApiProtectionTestBasic,
+  ApiProtectionTestProfessional,
+  ApiReactivateOwnCurrentSubscription,
+} from '@modules/subscriptions/presentation/decorators/subscriptions.decorator';
 
 @Controller('subscriptions')
 @ApiBearerAuth()
@@ -36,12 +42,7 @@ export class SubscriptionsController {
   ) {}
 
   @Get('my/current')
-  @ApiOperation({ description: "Get the current user's subscription" })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: "Returns the user's subscription details",
-    type: SubscriptionResponseDTO,
-  })
+  @ApiGetOwnSubscription()
   getOwnSubscription(
     @CurrentUser()
     user: UserResponseDTO,
@@ -50,12 +51,7 @@ export class SubscriptionsController {
   }
 
   @Patch('my/current')
-  @ApiOperation({ description: "Reactivate the current user's subscription" })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: "Returns the user's subscription details",
-    type: SubscriptionResponseDTO,
-  })
+  @ApiReactivateOwnCurrentSubscription()
   reactivateOwnCurrentSubscription(
     @CurrentUser()
     user: UserResponseDTO,
@@ -64,12 +60,7 @@ export class SubscriptionsController {
   }
 
   @Delete('my/current')
-  @ApiOperation({ description: "Cancel the current user's subscription" })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: "Returns the user's subscription details",
-    type: SubscriptionResponseDTO,
-  })
+  @ApiCancelOwnSubscription()
   cancelOwnCurrentSubscription(
     @CurrentUser()
     user: UserResponseDTO,
@@ -90,28 +81,23 @@ export class SubscriptionsController {
 
   @Get('protection-test/basic')
   @RequiresSubscription(SubscriptionPlan.BASIC)
-  @ApiOperation({
-    description: 'Endpoint to test if the require basic subscription works',
-  })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'Basic subscription access granted',
-  })
+  @ApiProtectionTestBasic()
   protectionTestBasic() {
-    return 'Works! Alejandro is the best';
+    return {
+      message: 'Subscription protection test successful',
+      plan: SubscriptionPlan.BASIC,
+      timestamp: new Date().toISOString(),
+    };
   }
 
   @Get('protection-test/professional')
   @RequiresSubscription(SubscriptionPlan.PROFESSIONAL)
-  @ApiOperation({
-    description:
-      'Endpoint to test if the require professional subscription works',
-  })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'Professional subscription access granted',
-  })
+  @ApiProtectionTestProfessional()
   protectionTestProfessional() {
-    return 'Works! Alejandro is the best';
+    return {
+      message: 'Subscription protection test successful',
+      plan: SubscriptionPlan.PROFESSIONAL,
+      timestamp: new Date().toISOString(),
+    };
   }
 }
