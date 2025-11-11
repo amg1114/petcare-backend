@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '@modules/users/users.module';
 
 import { StripeService } from './infrastructure/services/stripe.service';
+import { SubscriptionsGuard } from './infrastructure/guards/subscriptions.guard';
 import { WebhooksController } from './presentation/controllers/webhooks.controller';
 import { SubscriptionORMEntity } from './infrastructure/orm/subscription.orm-entity';
 import { HandleWebhooksUseCase } from './application/use-cases/handle-webhooks.usecase';
@@ -28,6 +29,10 @@ import { ReactivateCurrentSubscriptionUseCase } from './application/use-cases/re
     {
       provide: 'SubscriptionRepository',
       useClass: SubscriptionRepositoryImpl,
+    },
+    {
+      provide: 'APP_GUARD',
+      useClass: SubscriptionsGuard,
     },
     ConfigService,
     StripeService,
