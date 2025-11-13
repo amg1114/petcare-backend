@@ -4,8 +4,11 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import { SubscriptionEntity } from '@modules/subscriptions/domain/entities/subscription.entity';
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
 import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
+import {
+  IUserRepository,
+  USER_REPOSITORY_TOKEN,
+} from '@modules/users/domain/repositories/user.repository';
 
 import { StripeService } from '@modules/subscriptions/infrastructure/services/stripe.service';
 import { StripePricingService } from '@modules/subscriptions/infrastructure/services/stripe-pricing.service';
@@ -20,8 +23,8 @@ export class HandleWebhooksUseCase {
     private readonly stripePricingService: StripePricingService,
     @Inject('SubscriptionRepository')
     private readonly subscriptionRepository: ISubscriptionRepository,
-    @Inject('UserRepository')
-    private readonly usersRepository: UserRepository
+    @Inject(USER_REPOSITORY_TOKEN)
+    private readonly usersRepository: IUserRepository
   ) {}
 
   async execute(rawBody: Buffer<ArrayBufferLike>, signature: string) {

@@ -5,13 +5,16 @@ import {
   Injectable,
 } from '@nestjs/common';
 
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+import {
+  IUserRepository,
+  USER_REPOSITORY_TOKEN,
+} from '@modules/users/domain/repositories/user.repository';
 
 @Injectable()
 export class DeleteUserUseCase {
   constructor(
-    @Inject('UserRepository')
-    private readonly userRepository: UserRepository
+    @Inject(USER_REPOSITORY_TOKEN)
+    private readonly userRepository: IUserRepository
   ) {}
 
   async execute(userId: string): Promise<void> {
