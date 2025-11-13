@@ -2,6 +2,7 @@ import { applyDecorators, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
+
 import { CheckoutSessionDTO } from '@modules/subscriptions/application/dto/checkout-session-response.dto';
 
 import { SubscriptionResponseDTO } from '../../application/dto/subscription-response.dto';
@@ -16,7 +17,7 @@ export function ApiGetOwnSubscription() {
       status: HttpStatus.OK,
       description: "Returns the user's subscription details",
       type: SubscriptionResponseDTO,
-    }),
+    })
   );
 }
 
@@ -30,7 +31,7 @@ export function ApiReactivateOwnCurrentSubscription() {
       status: HttpStatus.OK,
       description: "Returns the user's subscription details",
       type: SubscriptionResponseDTO,
-    }),
+    })
   );
 }
 
@@ -44,7 +45,7 @@ export function ApiCancelOwnSubscription() {
       status: HttpStatus.OK,
       description: "Returns the user's subscription details",
       type: SubscriptionResponseDTO,
-    }),
+    })
   );
 }
 
@@ -65,7 +66,7 @@ export function ApiCheckoutSessionEndpoint() {
       type: CheckoutSessionDTO,
       status: HttpStatus.CREATED,
       description: 'The created stripe checkout session details',
-    }),
+    })
   );
 }
 
@@ -78,7 +79,7 @@ export function ApiProtectionTestBasic() {
     ApiResponse({
       status: HttpStatus.OK,
       description: 'Basic subscription access granted',
-    }),
+    })
   );
 }
 export function ApiProtectionTestProfessional() {
@@ -91,6 +92,6 @@ export function ApiProtectionTestProfessional() {
     ApiResponse({
       status: HttpStatus.OK,
       description: 'Professional subscription access granted',
-    }),
+    })
   );
 }

@@ -4,7 +4,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { SubscriptionEntity } from '@modules/subscriptions/domain/entities/subscription.entity';
-
 import { SubscriptionStatus } from '@modules/subscriptions/domain/value-objects/subscription-status.vo';
 import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
 
@@ -15,7 +14,7 @@ import { SubscriptionORMEntity } from '../orm/subscription.orm-entity';
 export class SubscriptionRepositoryImpl implements ISubscriptionRepository {
   constructor(
     @InjectRepository(SubscriptionORMEntity)
-    private readonly subscriptionRepository: Repository<SubscriptionORMEntity>,
+    private readonly subscriptionRepository: Repository<SubscriptionORMEntity>
   ) {}
 
   /**
@@ -37,7 +36,7 @@ export class SubscriptionRepositoryImpl implements ISubscriptionRepository {
   }
 
   async findCurrentSubscriptionByUserId(
-    id: string,
+    id: string
   ): Promise<SubscriptionEntity | null> {
     const subscription = await this.subscriptionRepository.findOne({
       where: { user: { id } },
@@ -71,7 +70,7 @@ export class SubscriptionRepositoryImpl implements ISubscriptionRepository {
    * @returns The user's uncanceled subscriptions or null if nothing was found.
    */
   async findAllUncanceledSubscriptions(
-    id: string,
+    id: string
   ): Promise<SubscriptionEntity[] | null> {
     const subscriptions = await this.subscriptionRepository.findBy({
       user: { id },

@@ -45,7 +45,7 @@ export class SubscriptionEntity {
    * Create a new subscription (without ID)
    */
   static create(
-    props: Omit<SubscriptionEntityProps, 'id' | 'createdAt' | 'updatedAt'>,
+    props: Omit<SubscriptionEntityProps, 'id' | 'createdAt' | 'updatedAt'>
   ): SubscriptionEntity {
     return new SubscriptionEntity({
       ...props,

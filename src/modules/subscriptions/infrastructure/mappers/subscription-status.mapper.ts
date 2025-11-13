@@ -22,7 +22,7 @@ export class SubscriptionStatusMapper {
       default:
         throw new Error(
           "The stripe status value doesn't have an implemented mapper: " +
-            status,
+            status
         );
     }
   }

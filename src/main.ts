@@ -28,7 +28,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
-    }),
+    })
   );
 
   app.use(
@@ -36,7 +36,7 @@ async function bootstrap() {
       verify: (req: any, res, buf) => {
         req.rawBody = buf;
       },
-    }),
+    })
   );
 
   app.setGlobalPrefix('api/v1');

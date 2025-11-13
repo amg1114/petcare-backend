@@ -14,13 +14,16 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
-import { RequiresSubscription } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
+
+import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
 import { CreateCheckoutSessionUseCase } from '@modules/subscriptions/application/use-cases/create-checkout-session.usecase';
 import { GetCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/get-current-subscription.usecase';
 import { CancelCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/cancel-current-subscription.usecase';
 import { ReactivateCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/reactivate-current-subscription.usecase';
+
+import { RequiresSubscription } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
+
 import {
   ApiCancelOwnSubscription,
   ApiCheckoutSessionEndpoint,
@@ -38,14 +41,14 @@ export class SubscriptionsController {
     private readonly createCheckoutSessionUseCase: CreateCheckoutSessionUseCase,
     private readonly getCurrentSubscriptionUseCase: GetCurrentSubscriptionUseCase,
     private readonly cancelCurrentSubscriptionUseCase: CancelCurrentSubscriptionUseCase,
-    private readonly reactivateCurrentSubscriptionUseCase: ReactivateCurrentSubscriptionUseCase,
+    private readonly reactivateCurrentSubscriptionUseCase: ReactivateCurrentSubscriptionUseCase
   ) {}
 
   @Get('my/current')
   @ApiGetOwnSubscription()
   getOwnSubscription(
     @CurrentUser()
-    user: UserResponseDTO,
+    user: UserResponseDTO
   ) {
     return this.getCurrentSubscriptionUseCase.execute(user.id);
   }
@@ -54,7 +57,7 @@ export class SubscriptionsController {
   @ApiReactivateOwnCurrentSubscription()
   reactivateOwnCurrentSubscription(
     @CurrentUser()
-    user: UserResponseDTO,
+    user: UserResponseDTO
   ) {
     return this.reactivateCurrentSubscriptionUseCase.execute(user.id);
   }
@@ -63,7 +66,7 @@ export class SubscriptionsController {
   @ApiCancelOwnSubscription()
   cancelOwnCurrentSubscription(
     @CurrentUser()
-    user: UserResponseDTO,
+    user: UserResponseDTO
   ) {
     return this.cancelCurrentSubscriptionUseCase.execute(user.id);
   }
@@ -74,7 +77,7 @@ export class SubscriptionsController {
   async createCheckoutSession(
     @Param('plan', new ParseEnumPipe(SubscriptionPlan)) plan: SubscriptionPlan,
     @CurrentUser()
-    user: UserResponseDTO,
+    user: UserResponseDTO
   ) {
     return this.createCheckoutSessionUseCase.execute(user.id, plan);
   }

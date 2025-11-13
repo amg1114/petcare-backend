@@ -24,7 +24,7 @@ export class UsersController {
   constructor(
     private readonly updateUserUseCase: UpdateUserUseCase,
     private readonly deleteUserUseCase: DeleteUserUseCase,
-    private readonly updatePasswordUseCase: UpdatePasswordUseCase,
+    private readonly updatePasswordUseCase: UpdatePasswordUseCase
   ) {}
 
   @Patch('me')
@@ -32,7 +32,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Update own user data' })
   async updateOwnUser(
     @CurrentUser() currentUser: UserResponseDTO,
-    @Body() dto: UpdateUserDTO,
+    @Body() dto: UpdateUserDTO
   ) {
     return this.updateUserUseCase.execute(currentUser.id, dto);
   }
@@ -42,7 +42,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Update own user Password' })
   async updatePassword(
     @CurrentUser() currentUser: UserResponseDTO,
-    @Body() dto: UpdatePasswordDTO,
+    @Body() dto: UpdatePasswordDTO
   ) {
     return this.updatePasswordUseCase.execute(currentUser.id, dto);
   }

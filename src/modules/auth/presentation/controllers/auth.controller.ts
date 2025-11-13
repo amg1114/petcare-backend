@@ -32,7 +32,7 @@ export class AuthController {
   constructor(
     private readonly loginUseCase: LoginUseCase,
     private readonly registerUseCase: RegisterUseCase,
-    private readonly getUserUseCase: GetUserUseCase,
+    private readonly getUserUseCase: GetUserUseCase
   ) {}
 
   @PublicRoute()

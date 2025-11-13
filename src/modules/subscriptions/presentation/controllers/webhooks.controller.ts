@@ -21,7 +21,7 @@ export class WebhooksController {
   @HttpCode(HttpStatus.OK)
   async handleWebhook(
     @Headers('stripe-signature') signature: string,
-    @Req() request: RawBodyRequest<Request>,
+    @Req() request: RawBodyRequest<Request>
   ) {
     const rawBody = request.rawBody;
 

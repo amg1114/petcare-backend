@@ -9,7 +9,7 @@ export class StripeService {
 
   constructor(private readonly configService: ConfigService) {
     this.stripe = new Stripe(
-      this.configService.getOrThrow<string>('STRIPE_SECRET_KEY'),
+      this.configService.getOrThrow<string>('STRIPE_SECRET_KEY')
     );
   }
 
@@ -99,23 +99,23 @@ export class StripeService {
    */
   async constructWebHookEvent(
     rawBody: Buffer<ArrayBufferLike>,
-    signature: string,
+    signature: string
   ): Promise<Stripe.Event> {
     const webhookSecret = this.configService.getOrThrow<string>(
-      'STRIPE_WEBHOOK_SECRET',
+      'STRIPE_WEBHOOK_SECRET'
     );
 
     try {
       const event = this.stripe.webhooks.constructEvent(
         rawBody,
         signature,
-        webhookSecret,
+        webhookSecret
       );
 
       return event;
     } catch (error: any) {
       throw new Error(
-        `Webhook signature verification failed: ${error.message}`,
+        `Webhook signature verification failed: ${error.message}`
       );
     }
   }

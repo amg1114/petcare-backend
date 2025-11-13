@@ -1,0 +1,10 @@
+pre-commit:
+  commands:
+    format:
+      run: npm run format
+    lint:
+      run: npm run lint
+pre-push:
+  commands:
+    test:
+      run: npm run test

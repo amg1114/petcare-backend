@@ -3,9 +3,9 @@ import { IPasswordService } from '@/modules/shared/domain/services/password.serv
 import { JwtService } from '@nestjs/jwt';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
-
 import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+
+import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
 
 import { LoginDTO } from '../dto/login.dto';
 import { AuthResponseDTO } from '../dto/auth-response.dto';
@@ -18,7 +18,7 @@ export class LoginUseCase {
     private readonly userRepository: UserRepository,
     @Inject('PasswordService')
     private readonly passwordService: IPasswordService,
-    private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService
   ) {}
 
   async execute({ email, password }: LoginDTO): Promise<AuthResponseDTO> {
@@ -28,7 +28,7 @@ export class LoginUseCase {
 
     const matchPassword = await this.passwordService.compare(
       password,
-      user.password,
+      user.password
     );
 
     if (!matchPassword) throw new UnauthorizedException('Invalid credentials');

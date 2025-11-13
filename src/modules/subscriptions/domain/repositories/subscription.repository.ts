@@ -9,12 +9,12 @@ export interface ISubscriptionRepository {
   findByUserId(id: string): Promise<SubscriptionEntity[] | null>;
 
   findAllUncanceledSubscriptions(
-    id: string,
+    id: string
   ): Promise<SubscriptionEntity[] | null>;
 
   findByStripeId(id: string): Promise<SubscriptionEntity | null>;
 
   findCurrentSubscriptionByUserId(
-    id: string,
+    id: string
   ): Promise<SubscriptionEntity | null>;
 }
