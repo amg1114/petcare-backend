@@ -1,6 +1,5 @@
 import {
   IsEmail,
-  IsEnum,
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
@@ -10,7 +9,6 @@ import {
 
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 
-import { UserType } from '@modules/users/domain/value-objects/user-type.enum';
 import { IsUserPassword } from '@modules/users/infrastructure/decorators/user-password.decorator';
 
 @ApiSchema({
@@ -49,12 +47,4 @@ export class RegisterDTO {
   @IsPhoneNumber('CO')
   @IsNotEmpty()
   phone: string;
-
-  @ApiProperty({
-    description: 'The type of the user',
-    example: UserType.BASIC,
-    enum: UserType,
-  })
-  @IsEnum(UserType)
-  type: UserType;
 }

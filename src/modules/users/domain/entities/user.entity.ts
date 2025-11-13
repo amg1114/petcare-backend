@@ -1,14 +1,11 @@
 import { SubscriptionEntity } from '@modules/subscriptions/domain/entities/subscription.entity';
 
-import { UserType } from '../value-objects/user-type.enum';
-
 export interface UserEntityProps {
   id: string | undefined;
   name: string;
   email: string;
   password: string;
   phone: string;
-  type: UserType;
   stripeCustomerId?: string;
   subscription?: SubscriptionEntity[];
   createdAt?: Date;
@@ -21,7 +18,6 @@ export class UserEntity {
   email: string;
   password: string;
   phone: string;
-  type: UserType;
   stripeCustomerId?: string;
   subscription?: SubscriptionEntity[];
   createdAt?: Date;
@@ -33,7 +29,6 @@ export class UserEntity {
     this.email = props.email;
     this.password = props.password;
     this.phone = props.phone;
-    this.type = props.type;
     this.stripeCustomerId = props.stripeCustomerId;
     this.subscription = props.subscription;
     this.createdAt = props.createdAt;
