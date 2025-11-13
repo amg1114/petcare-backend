@@ -26,7 +26,7 @@ export class PetORMEntity {
   breed: string;
 
   @Column({ type: 'date' })
-  bornDate: Date;
+  birthDate: Date;
 
   @Column('decimal', { precision: 5, scale: 2, nullable: true })
   weight: number | null;
