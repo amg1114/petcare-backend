@@ -41,7 +41,7 @@ export class UserEntity {
    * @returns The created user entity.
    */
   static create(
-    props: Omit<UserEntityProps, 'id' | 'createdAt' | 'deletedAt'>,
+    props: Omit<UserEntityProps, 'id' | 'createdAt' | 'deletedAt'>
   ): UserEntity {
     return new UserEntity({
       ...props,

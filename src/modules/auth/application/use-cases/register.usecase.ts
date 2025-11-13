@@ -4,10 +4,9 @@ import { JwtService } from '@nestjs/jwt';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
+import { UserRepository } from '@modules/users/domain/repositories/user.repository';
 
 import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
-
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
 
 import { RegisterDTO } from '../dto/register.dto';
 import { AuthResponseDTO } from '../dto/auth-response.dto';
@@ -20,7 +19,7 @@ export class RegisterUseCase {
     private readonly userRepository: UserRepository,
     @Inject('PasswordService')
     private readonly passwordService: IPasswordService,
-    private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService
   ) {}
 
   async execute(data: RegisterDTO): Promise<AuthResponseDTO> {

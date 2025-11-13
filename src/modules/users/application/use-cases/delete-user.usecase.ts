@@ -11,7 +11,7 @@ import { UserRepository } from '@modules/users/domain/repositories/user.reposito
 export class DeleteUserUseCase {
   constructor(
     @Inject('UserRepository')
-    private readonly userRepository: UserRepository,
+    private readonly userRepository: UserRepository
   ) {}
 
   async execute(userId: string): Promise<void> {

@@ -5,18 +5,17 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { SubscriptionMapper } from '@modules/subscriptions/infrastructure/mappers/subscription.mapper';
+import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
 
 import { StripeService } from '@modules/subscriptions/infrastructure/services/stripe.service';
-
-import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
+import { SubscriptionMapper } from '@modules/subscriptions/infrastructure/mappers/subscription.mapper';
 
 @Injectable()
 export class ReactivateCurrentSubscriptionUseCase {
   constructor(
     @Inject('SubscriptionRepository')
     private readonly subscriptionRepository: ISubscriptionRepository,
-    private readonly stripeService: StripeService,
+    private readonly stripeService: StripeService
   ) {}
 
   async execute(userId: string) {
@@ -25,18 +24,18 @@ export class ReactivateCurrentSubscriptionUseCase {
 
     if (!subscription) {
       throw new NotFoundException(
-        `No subscriptions were found for user: ${userId}`,
+        `No subscriptions were found for user: ${userId}`
       );
     }
 
     if (!subscription.canReactivate) {
       throw new BadRequestException(
-        'Your subscription cannot be reactivated. It may have already expired or is not scheduled for cancellation.',
+        'Your subscription cannot be reactivated. It may have already expired or is not scheduled for cancellation.'
       );
     }
 
     await this.stripeService.reactivateSubscription(
-      subscription.stripeSubscriptionId,
+      subscription.stripeSubscriptionId
     );
 
     subscription.reactivate();

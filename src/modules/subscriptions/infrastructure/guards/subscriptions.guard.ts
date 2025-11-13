@@ -13,6 +13,7 @@ import {
 
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
+
 import { REQUIRES_SUBSCRIPTION_KEY } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
 
 @Injectable()
@@ -20,7 +21,7 @@ export class SubscriptionsGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     @Inject('SubscriptionRepository')
-    private readonly subscriptionsRepository: ISubscriptionRepository,
+    private readonly subscriptionsRepository: ISubscriptionRepository
   ) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: Request = context.switchToHttp().getRequest();
@@ -47,7 +48,7 @@ export class SubscriptionsGuard implements CanActivate {
 
     const currentSub =
       await this.subscriptionsRepository.findCurrentSubscriptionByUserId(
-        user.id,
+        user.id
       );
 
     if (!currentSub || !currentSub.isActive) {
@@ -56,7 +57,7 @@ export class SubscriptionsGuard implements CanActivate {
 
     if (!requiredSubscriptions.includes(currentSub.plan)) {
       throw new ForbiddenException(
-        `This feature requires one of the following subscription plans: ${requiredSubscriptions.join(', ')}`,
+        `This feature requires one of the following subscription plans: ${requiredSubscriptions.join(', ')}`
       );
     }
 

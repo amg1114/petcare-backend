@@ -12,7 +12,7 @@ export class UpdatePasswordUseCase {
     @Inject('UserRepository')
     private readonly userRepository: UserRepository,
     @Inject('PasswordService')
-    private readonly passwordService: IPasswordService,
+    private readonly passwordService: IPasswordService
   ) {}
 
   async execute(userId: string, data: UpdatePasswordDTO): Promise<void> {
@@ -21,7 +21,7 @@ export class UpdatePasswordUseCase {
 
     const passwordMatch = await this.passwordService.compare(
       data.currentPassword,
-      currentPassword,
+      currentPassword
     );
 
     if (!passwordMatch)

@@ -15,7 +15,7 @@ export function IsUserPassword() {
       {
         message:
           'The password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter and one number.',
-      },
-    ),
+      }
+    )
   );
 }

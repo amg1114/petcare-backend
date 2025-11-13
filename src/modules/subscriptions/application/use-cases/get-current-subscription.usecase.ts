@@ -1,14 +1,14 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
-import { SubscriptionMapper } from '@modules/subscriptions/infrastructure/mappers/subscription.mapper';
-
 import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
+
+import { SubscriptionMapper } from '@modules/subscriptions/infrastructure/mappers/subscription.mapper';
 
 @Injectable()
 export class GetCurrentSubscriptionUseCase {
   constructor(
     @Inject('SubscriptionRepository')
-    private readonly subscriptionRepository: ISubscriptionRepository,
+    private readonly subscriptionRepository: ISubscriptionRepository
   ) {}
 
   async execute(userId: string) {
@@ -17,7 +17,7 @@ export class GetCurrentSubscriptionUseCase {
 
     if (!subscription) {
       throw new NotFoundException(
-        `No subscriptions were found for user: ${userId}`,
+        `No subscriptions were found for user: ${userId}`
       );
     }
 

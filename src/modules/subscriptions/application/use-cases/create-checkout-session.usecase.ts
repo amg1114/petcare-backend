@@ -3,10 +3,10 @@ import { StripePricingService } from '@/modules/subscriptions/infrastructure/ser
 import { ConfigService } from '@nestjs/config';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
-import { StripeService } from '@modules/subscriptions/infrastructure/services/stripe.service';
-
 import { UserRepository } from '@modules/users/domain/repositories/user.repository';
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
+
+import { StripeService } from '@modules/subscriptions/infrastructure/services/stripe.service';
 
 import { CheckoutSessionDTO } from '../dto/checkout-session-response.dto';
 
@@ -17,12 +17,12 @@ export class CreateCheckoutSessionUseCase {
     private userRepository: UserRepository,
     private readonly stripeService: StripeService,
     private readonly stripePricingService: StripePricingService,
-    private readonly configService: ConfigService,
+    private readonly configService: ConfigService
   ) {}
 
   async execute(
     userId: string,
-    plan: SubscriptionPlan,
+    plan: SubscriptionPlan
   ): Promise<CheckoutSessionDTO> {
     const user = await this.userRepository.findById(userId);
 
@@ -35,7 +35,7 @@ export class CreateCheckoutSessionUseCase {
     if (!customerId) {
       customerId = await this.stripeService.createCustomer(
         user.email,
-        user.name,
+        user.name
       );
 
       user.stripeCustomerId = customerId;

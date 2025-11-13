@@ -1,8 +1,8 @@
 import { SubscriptionEntity } from '@modules/subscriptions/domain/entities/subscription.entity';
 
-import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
-
 import { SubscriptionResponseDTO } from '@modules/subscriptions/application/dto/subscription-response.dto';
+
+import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
 
 import { SubscriptionORMEntity } from '../orm/subscription.orm-entity';
 
@@ -10,7 +10,7 @@ export class SubscriptionMapper {
   static toDomain(ormEntity: SubscriptionORMEntity): SubscriptionEntity {
     if (!ormEntity.user) {
       throw new Error(
-        "Subscription's user is required to map orm entity to a domain instance",
+        "Subscription's user is required to map orm entity to a domain instance"
       );
     }
 
