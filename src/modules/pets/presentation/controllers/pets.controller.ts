@@ -29,7 +29,7 @@ export class PetsController {
     private readonly getUserPetsUseCase: GetUserPetsUseCase
   ) {}
 
-  @Get('my')
+  @Get()
   @HttpCode(HttpStatus.OK)
   @RequiresSubscription(SubscriptionPlan.BASIC)
   @ApiGetUserPets()
@@ -37,7 +37,7 @@ export class PetsController {
     return this.getUserPetsUseCase.execute(user.id);
   }
 
-  @Post('my')
+  @Post()
   @HttpCode(HttpStatus.CREATED)
   @RequiresSubscription(SubscriptionPlan.BASIC)
   @ApiCreatePet()
