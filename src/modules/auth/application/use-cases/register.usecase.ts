@@ -1,10 +1,9 @@
-import { IPasswordService } from '@/modules/shared/domain/services/password.service.interface';
-
 import { JwtService } from '@nestjs/jwt';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+import { IPasswordService } from '@modules/shared/domain/services/password.service.interface';
 
 import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
 

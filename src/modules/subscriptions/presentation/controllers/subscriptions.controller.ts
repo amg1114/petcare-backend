@@ -1,6 +1,3 @@
-import { JwtAuthGuard } from '@/modules/auth/infrastructure/guards/jwt.guard';
-import { CurrentUser } from '@/modules/auth/infrastructure/decorators/current-user.decorator';
-
 import { ApiBearerAuth } from '@nestjs/swagger';
 import {
   Controller,
@@ -22,6 +19,8 @@ import { GetCurrentSubscriptionUseCase } from '@modules/subscriptions/applicatio
 import { CancelCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/cancel-current-subscription.usecase';
 import { ReactivateCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/reactivate-current-subscription.usecase';
 
+import { JwtAuthGuard } from '@modules/auth/infrastructure/guards/jwt.guard';
+import { CurrentUser } from '@modules/auth/infrastructure/decorators/current-user.decorator';
 import { RequiresSubscription } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
 
 import {

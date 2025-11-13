@@ -1,6 +1,4 @@
 import { Request } from 'express';
-import { UserResponseDTO } from '@/modules/users/application/dto/user-response.dto';
-import { IS_PUBLIC_KEY } from '@/modules/auth/infrastructure/decorators/public-route.decorator';
 
 import { Reflector } from '@nestjs/core';
 import {
@@ -14,6 +12,9 @@ import {
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 import { ISubscriptionRepository } from '@modules/subscriptions/domain/repositories/subscription.repository';
 
+import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
+
+import { IS_PUBLIC_KEY } from '@modules/auth/infrastructure/decorators/public-route.decorator';
 import { REQUIRES_SUBSCRIPTION_KEY } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
 
 @Injectable()

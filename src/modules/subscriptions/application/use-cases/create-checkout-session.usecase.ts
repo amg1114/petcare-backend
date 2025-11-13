@@ -1,5 +1,3 @@
-import { StripePricingService } from '@/modules/subscriptions/infrastructure/services/stripe-pricing.service';
-
 import { ConfigService } from '@nestjs/config';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
@@ -7,6 +5,7 @@ import { UserRepository } from '@modules/users/domain/repositories/user.reposito
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 
 import { StripeService } from '@modules/subscriptions/infrastructure/services/stripe.service';
+import { StripePricingService } from '@modules/subscriptions/infrastructure/services/stripe-pricing.service';
 
 import { CheckoutSessionDTO } from '../dto/checkout-session-response.dto';
 

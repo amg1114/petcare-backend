@@ -1,12 +1,3 @@
-import { LoginDTO } from '@/modules/auth/application/dto/login.dto';
-import { RegisterDTO } from '@/modules/auth/application/dto/register.dto';
-import { JwtAuthGuard } from '@/modules/auth/infrastructure/guards/jwt.guard';
-import { LoginUseCase } from '@/modules/auth/application/use-cases/login.usecase';
-import { AuthResponseDTO } from '@/modules/auth/application/dto/auth-response.dto';
-import { RegisterUseCase } from '@/modules/auth/application/use-cases/register.usecase';
-import { CurrentUser } from '@/modules/auth/infrastructure/decorators/current-user.decorator';
-import { PublicRoute } from '@/modules/auth/infrastructure/decorators/public-route.decorator';
-
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -23,8 +14,17 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
+import { LoginDTO } from '@modules/auth/application/dto/login.dto';
+import { RegisterDTO } from '@modules/auth/application/dto/register.dto';
+import { LoginUseCase } from '@modules/auth/application/use-cases/login.usecase';
+import { AuthResponseDTO } from '@modules/auth/application/dto/auth-response.dto';
 import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
+import { RegisterUseCase } from '@modules/auth/application/use-cases/register.usecase';
 import { GetUserUseCase } from '@modules/users/application/use-cases/get-user.usecase';
+
+import { JwtAuthGuard } from '@modules/auth/infrastructure/guards/jwt.guard';
+import { CurrentUser } from '@modules/auth/infrastructure/decorators/current-user.decorator';
+import { PublicRoute } from '@modules/auth/infrastructure/decorators/public-route.decorator';
 
 @Controller('auth')
 @ApiTags('Auth')

@@ -10,7 +10,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 register({
   baseUrl: join(__dirname, '../../'),
   paths: {
-    '@/*': ['src/*'],
     '@modules/*': ['src/modules/*'],
   },
 });
