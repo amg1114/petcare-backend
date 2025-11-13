@@ -1,6 +1,9 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
+import {
+  IUserRepository,
+  USER_REPOSITORY_TOKEN,
+} from '@modules/users/domain/repositories/user.repository';
 
 import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
 
@@ -9,8 +12,8 @@ import { UserResponseDTO } from '../dto/user-response.dto';
 @Injectable()
 export class GetUserUseCase {
   constructor(
-    @Inject('UserRepository')
-    private readonly userRepository: UserRepository
+    @Inject(USER_REPOSITORY_TOKEN)
+    private readonly userRepository: IUserRepository
   ) {}
 
   async execute(userId: string): Promise<UserResponseDTO> {

@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { USER_REPOSITORY_TOKEN } from '@modules/users/domain/repositories/user.repository';
+
 import { SharedModule } from '@modules/shared/shared.module';
 
 import { UserORMEntity } from './infrastructure/orm/user.orm-entity';
@@ -15,7 +17,7 @@ import { UpdatePasswordUseCase } from './application/use-cases/update-password.u
   imports: [TypeOrmModule.forFeature([UserORMEntity]), SharedModule],
   providers: [
     {
-      provide: 'UserRepository',
+      provide: USER_REPOSITORY_TOKEN,
       useClass: UserORMRepository,
     },
     UpdateUserUseCase,

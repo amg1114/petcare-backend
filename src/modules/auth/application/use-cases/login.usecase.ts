@@ -1,8 +1,11 @@
 import { JwtService } from '@nestjs/jwt';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { UserRepository } from '@modules/users/domain/repositories/user.repository';
 import { IPasswordService } from '@modules/shared/domain/services/password.service.interface';
+import {
+  IUserRepository,
+  USER_REPOSITORY_TOKEN,
+} from '@modules/users/domain/repositories/user.repository';
 
 import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
 
@@ -13,8 +16,8 @@ import { IJwtPayload } from '../interfaces/jwt-payload.interface';
 @Injectable()
 export class LoginUseCase {
   constructor(
-    @Inject('UserRepository')
-    private readonly userRepository: UserRepository,
+    @Inject(USER_REPOSITORY_TOKEN)
+    private readonly userRepository: IUserRepository,
     @Inject('PasswordService')
     private readonly passwordService: IPasswordService,
     private readonly jwtService: JwtService
