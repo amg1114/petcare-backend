@@ -22,7 +22,7 @@ export class PetORMEntity {
   @Column({ type: 'enum', enum: PetSpecies })
   species: PetSpecies;
 
-  @Column({ type: 'enum', enum: PetSpecies })
+  @Column()
   breed: string;
 
   @Column({ type: 'date' })
