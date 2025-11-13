@@ -7,6 +7,8 @@ import {
   OneToMany,
 } from 'typeorm';
 
+import { PetORMEntity } from '@modules/pets/infrastructure/orm/pet.orm-entity';
+
 import { SubscriptionORMEntity } from '../../../subscriptions/infrastructure/orm/subscription.orm-entity';
 
 @Entity('users')
@@ -31,6 +33,9 @@ export class UserORMEntity {
 
   @OneToMany(() => SubscriptionORMEntity, (subscription) => subscription.user)
   subscriptions?: SubscriptionORMEntity[];
+
+  @OneToMany(() => PetORMEntity, (pets) => pets.owner)
+  pets: PetORMEntity[];
 
   @CreateDateColumn()
   createdAt: Date;
