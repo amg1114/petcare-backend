@@ -6,7 +6,7 @@ export interface PetEntityProps {
   name: string;
   species: PetSpecies;
   breed: string;
-  bornDate: Date;
+  birthDate: Date;
   weight?: number;
   photo?: string;
   notes?: string;
@@ -20,7 +20,7 @@ export class PetEntity {
   name: string;
   species: PetSpecies;
   breed: string;
-  bornDate: Date;
+  birthDate: Date;
   weight?: number;
   photo?: string;
   notes?: string;
@@ -33,7 +33,7 @@ export class PetEntity {
     this.name = props.name;
     this.species = props.species;
     this.breed = props.breed;
-    this.bornDate = props.bornDate;
+    this.birthDate = props.birthDate;
     this.weight = props.weight;
     this.photo = props.photo;
     this.notes = props.notes;
