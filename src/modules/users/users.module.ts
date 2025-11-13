@@ -1,7 +1,7 @@
-import { SharedModule } from '@/modules/shared/shared.module';
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { SharedModule } from '@modules/shared/shared.module';
 
 import { UserORMEntity } from './infrastructure/orm/user.orm-entity';
 import { GetUserUseCase } from './application/use-cases/get-user.usecase';

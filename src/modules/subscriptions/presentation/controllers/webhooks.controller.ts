@@ -1,5 +1,3 @@
-import { PublicRoute } from '@/modules/auth/infrastructure/decorators/public-route.decorator';
-
 import {
   Controller,
   Headers,
@@ -11,6 +9,8 @@ import {
 } from '@nestjs/common';
 
 import { HandleWebhooksUseCase } from '@modules/subscriptions/application/use-cases/handle-webhooks.usecase';
+
+import { PublicRoute } from '@modules/auth/infrastructure/decorators/public-route.decorator';
 
 @Controller('webhooks')
 export class WebhooksController {
