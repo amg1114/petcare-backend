@@ -8,6 +8,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { DataSourceConfig } from '@database/data.source';
 
 import { AuthModule } from '@modules/auth/auth.module';
+import { PetsModule } from '@modules/pets/pets.module';
 import { UsersModule } from '@modules/users/users.module';
 import { SharedModule } from '@modules/shared/shared.module';
 import { SubscriptionsModule } from '@modules/subscriptions/subscriptions.module';
@@ -23,6 +24,7 @@ import { SubscriptionsModule } from '@modules/subscriptions/subscriptions.module
     AuthModule,
     SharedModule,
     SubscriptionsModule,
+    PetsModule,
   ],
 })
 export class AppModule {}
