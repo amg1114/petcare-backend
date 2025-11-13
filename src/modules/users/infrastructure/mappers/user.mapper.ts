@@ -16,7 +16,6 @@ export class UserMapper {
     dto.email = domainEntity.email;
     dto.name = domainEntity.name;
     dto.phone = domainEntity.phone;
-    dto.type = domainEntity.type;
     dto.createdAt = domainEntity.createdAt ?? null;
 
     return dto;

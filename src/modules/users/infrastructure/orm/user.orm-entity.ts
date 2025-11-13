@@ -7,7 +7,6 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { UserType } from '../../domain/value-objects/user-type.enum';
 import { SubscriptionORMEntity } from '../../../subscriptions/infrastructure/orm/subscription.orm-entity';
 
 @Entity('users')
@@ -26,9 +25,6 @@ export class UserORMEntity {
 
   @Column({ nullable: true })
   phone: string;
-
-  @Column({ type: 'enum', enum: UserType, default: UserType.BASIC })
-  type: UserType;
 
   @Column({ unique: true, nullable: true })
   stripeCustomerId?: string;
