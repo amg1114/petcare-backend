@@ -5,6 +5,7 @@ import { PET_REPOSITORY_TOKEN } from '@modules/pets/domain/repositories/pet.repo
 
 import { GetPetUseCase } from '@modules/pets/application/use-cases/get-pet.usecase';
 import { CreatePetUseCase } from '@modules/pets/application/use-cases/create-pet.usecase';
+import { DeletePetUseCase } from '@modules/pets/application/use-cases/delete-pet.usecase';
 import { UpdatePetUseCase } from '@modules/pets/application/use-cases/update-pet.usecase';
 import { GetUserPetsUseCase } from '@modules/pets/application/use-cases/get-user-pets.usecase';
 
@@ -22,10 +23,11 @@ import { UsersModule } from '@modules/users/users.module';
       provide: PET_REPOSITORY_TOKEN,
       useClass: PetRepositoryImpl,
     },
-    CreatePetUseCase,
-    GetUserPetsUseCase,
     GetPetUseCase,
+    CreatePetUseCase,
+    DeletePetUseCase,
     UpdatePetUseCase,
+    GetUserPetsUseCase,
   ],
   exports: [PET_REPOSITORY_TOKEN],
   controllers: [PetsController],
