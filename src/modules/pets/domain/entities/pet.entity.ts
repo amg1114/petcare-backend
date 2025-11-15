@@ -58,4 +58,8 @@ export class PetEntity {
 
     return new PetEntity(props);
   }
+
+  public isOwner(owner: PetEntity['owner']) {
+    return this.owner.id === owner.id;
+  }
 }
