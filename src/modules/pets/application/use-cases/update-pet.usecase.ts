@@ -7,14 +7,11 @@ import {
 } from '@nestjs/common';
 
 import { PetEntity } from '@modules/pets/domain/entities/pet.entity';
+import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import {
   PET_REPOSITORY_TOKEN,
   IPetRepository,
 } from '@modules/pets/domain/repositories/pet.repository';
-import {
-  USER_REPOSITORY_TOKEN,
-  IUserRepository,
-} from '@modules/users/domain/repositories/user.repository';
 
 import { UpdatePetDto } from '@modules/pets/application/dto/update-pet.dto';
 
@@ -26,22 +23,11 @@ export class UpdatePetUseCase {
 
   constructor(
     @Inject(PET_REPOSITORY_TOKEN)
-    private readonly petsRepository: IPetRepository,
-    @Inject(USER_REPOSITORY_TOKEN)
-    private readonly userRepository: IUserRepository
+    private readonly petsRepository: IPetRepository
   ) {}
 
-  async execute(ownerId: string, petId: string, dto: UpdatePetDto) {
-    this.logger.log(`Updating a pet for user: ${ownerId}`);
-
-    const owner = await this.userRepository.findById(ownerId);
-
-    if (!owner) {
-      this.logger.error(
-        `User with id ${ownerId} was not found when updating a pet`
-      );
-      throw new NotFoundException(`User with id ${ownerId} was not found`);
-    }
+  async execute(user: UserEntity, petId: string, dto: UpdatePetDto) {
+    this.logger.log(`Updating a pet for user: ${user.id}`);
 
     let currentPet = await this.petsRepository.findById(petId);
 
@@ -52,9 +38,9 @@ export class UpdatePetUseCase {
       throw new NotFoundException(`Pet with id ${petId} was not found`);
     }
 
-    if (!currentPet.isOwner(owner)) {
+    if (!currentPet.isOwner(user)) {
       this.logger.error(
-        `User with id ${ownerId} was trying to update the pet with ID ${petId}.`
+        `User with id ${user.id} was trying to update the pet with ID ${petId}.`
       );
       throw new ForbiddenException(
         `You don't have permissions to update this pet`

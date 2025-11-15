@@ -69,7 +69,7 @@ export class PetsController {
   @RequiresSubscription(SubscriptionPlan.BASIC)
   @ApiCreatePet()
   createUserPet(@CurrentUser() user: UserEntity, @Body() dto: CreatePetDto) {
-    return this.createPetUseCase.execute(user.id, dto);
+    return this.createPetUseCase.execute(user, dto);
   }
 
   @Patch(':id')
@@ -81,7 +81,7 @@ export class PetsController {
     @CurrentUser() user: UserEntity,
     @Body() dto: UpdatePetDto
   ) {
-    return this.updatePetUseCase.execute(user.id, petId, dto);
+    return this.updatePetUseCase.execute(user, petId, dto);
   }
 
   @Delete(':id')
