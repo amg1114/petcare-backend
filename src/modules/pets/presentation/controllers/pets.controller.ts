@@ -30,6 +30,7 @@ import { RequiresSubscription } from '@modules/subscriptions/infrastructure/deco
 
 import { ApiGetPet } from '@modules/pets/presentation/decorators/api-get-pet.decorator';
 import { ApiCreatePet } from '@modules/pets/presentation/decorators/api-create-pet.decorator';
+import { ApiDeletePet } from '@modules/pets/presentation/decorators/api-delete-pet.decorator';
 import { ApiUpdatePet } from '@modules/pets/presentation/decorators/api-update-pet.decorator';
 import { ApiGetUserPets } from '@modules/pets/presentation/decorators/api-get-user-pets.decorator';
 
@@ -87,6 +88,7 @@ export class PetsController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @RequiresSubscription(SubscriptionPlan.BASIC)
+  @ApiDeletePet()
   deletePet(
     @Param('id', new ParseUUIDPipe()) petId: string,
     @CurrentUser() user: UserEntity
