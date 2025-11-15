@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 
 import { PetORMEntity } from '@modules/pets/infrastructure/orm/pet.orm-entity';
+import { AppointmentORMEntity } from '@modules/appointments/infrastructure/orm/appointment.orm-entity';
 
 import { SubscriptionORMEntity } from '../../../subscriptions/infrastructure/orm/subscription.orm-entity';
 
@@ -36,6 +37,9 @@ export class UserORMEntity {
 
   @OneToMany(() => PetORMEntity, (pets) => pets.owner)
   pets: PetORMEntity[];
+
+  @OneToMany(() => AppointmentORMEntity, (services) => services.veterinarian)
+  appointments: AppointmentORMEntity[];
 
   @CreateDateColumn()
   createdAt: Date;
