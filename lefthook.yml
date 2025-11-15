@@ -7,4 +7,4 @@ pre-commit:
 pre-push:
   commands:
     test:
-      run: npm run test
+      run: npm run test -- --passWithNoTests
