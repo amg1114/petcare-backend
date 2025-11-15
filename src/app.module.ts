@@ -13,6 +13,8 @@ import { UsersModule } from '@modules/users/users.module';
 import { SharedModule } from '@modules/shared/shared.module';
 import { SubscriptionsModule } from '@modules/subscriptions/subscriptions.module';
 
+import { ServicesModule } from './modules/services/services.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -25,6 +27,7 @@ import { SubscriptionsModule } from '@modules/subscriptions/subscriptions.module
     SharedModule,
     SubscriptionsModule,
     PetsModule,
+    ServicesModule,
   ],
 })
 export class AppModule {}
