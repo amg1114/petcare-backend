@@ -75,6 +75,14 @@ export class SubscriptionEntity {
     return !this.isCanceled && this.cancelAtEnd && this.endAt > new Date();
   }
 
+  get isBasic() {
+    return this.plan === SubscriptionPlan.BASIC;
+  }
+
+  get isProfessional() {
+    return this.plan === SubscriptionPlan.PROFESSIONAL;
+  }
+
   cancel() {
     if (this.isCanceled) return;
 
