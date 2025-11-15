@@ -1,14 +1,11 @@
-import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 
 import { PetEntity } from '@modules/pets/domain/entities/pet.entity';
+import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import {
   IPetRepository,
   PET_REPOSITORY_TOKEN,
 } from '@modules/pets/domain/repositories/pet.repository';
-import {
-  IUserRepository,
-  USER_REPOSITORY_TOKEN,
-} from '@modules/users/domain/repositories/user.repository';
 
 import { CreatePetDto } from '@modules/pets/application/dto/create-pet.dto';
 
@@ -20,26 +17,15 @@ export class CreatePetUseCase {
 
   constructor(
     @Inject(PET_REPOSITORY_TOKEN)
-    private readonly petsRepository: IPetRepository,
-    @Inject(USER_REPOSITORY_TOKEN)
-    private readonly userRepository: IUserRepository
+    private readonly petsRepository: IPetRepository
   ) {}
 
-  async execute(ownerId: string, dto: CreatePetDto) {
-    this.logger.log(`Creating a new pet for user: ${ownerId}`);
-
-    const owner = await this.userRepository.findById(ownerId);
-
-    if (!owner) {
-      this.logger.error(
-        `User with id ${ownerId} was not found when creating a pet`
-      );
-      throw new NotFoundException(`User with id ${ownerId} was not found`);
-    }
+  async execute(user: UserEntity, dto: CreatePetDto) {
+    this.logger.log(`Creating a new pet for user: ${user.id}`);
 
     const newPet = PetEntity.create({
       ...dto,
-      owner,
+      owner: user,
     });
 
     const savedPet = await this.petsRepository.save(newPet);
