@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PET_REPOSITORY_TOKEN } from '@modules/pets/domain/repositories/pet.repository';
 
 import { CreatePetUseCase } from '@modules/pets/application/use-cases/create-pet.usecase';
+import { UpdatePetUseCase } from '@modules/pets/application/use-cases/update-pet.usecase';
 import { GetUserPetsUseCase } from '@modules/pets/application/use-cases/get-user-pets.usecase';
 
 import { PetORMEntity } from '@modules/pets/infrastructure/orm/pet.orm-entity';
@@ -22,6 +23,7 @@ import { UsersModule } from '@modules/users/users.module';
     },
     CreatePetUseCase,
     GetUserPetsUseCase,
+    UpdatePetUseCase,
   ],
   exports: [PET_REPOSITORY_TOKEN],
   controllers: [PetsController],
