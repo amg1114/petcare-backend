@@ -62,6 +62,9 @@ export class SubscriptionsGuard implements CanActivate {
       );
     }
 
+    // Attach subscription to request
+    request.subscription = currentSub;
+
     return true;
   }
 }

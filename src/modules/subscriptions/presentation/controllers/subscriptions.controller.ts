@@ -11,9 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
+import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 
-import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
 import { CreateCheckoutSessionUseCase } from '@modules/subscriptions/application/use-cases/create-checkout-session.usecase';
 import { GetCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/get-current-subscription.usecase';
 import { CancelCurrentSubscriptionUseCase } from '@modules/subscriptions/application/use-cases/cancel-current-subscription.usecase';
@@ -47,7 +47,7 @@ export class SubscriptionsController {
   @ApiGetOwnSubscription()
   getOwnSubscription(
     @CurrentUser()
-    user: UserResponseDTO
+    user: UserEntity
   ) {
     return this.getCurrentSubscriptionUseCase.execute(user.id);
   }
@@ -56,7 +56,7 @@ export class SubscriptionsController {
   @ApiReactivateOwnCurrentSubscription()
   reactivateOwnCurrentSubscription(
     @CurrentUser()
-    user: UserResponseDTO
+    user: UserEntity
   ) {
     return this.reactivateCurrentSubscriptionUseCase.execute(user.id);
   }
@@ -65,7 +65,7 @@ export class SubscriptionsController {
   @ApiCancelOwnSubscription()
   cancelOwnCurrentSubscription(
     @CurrentUser()
-    user: UserResponseDTO
+    user: UserEntity
   ) {
     return this.cancelCurrentSubscriptionUseCase.execute(user.id);
   }
@@ -76,7 +76,7 @@ export class SubscriptionsController {
   async createCheckoutSession(
     @Param('plan', new ParseEnumPipe(SubscriptionPlan)) plan: SubscriptionPlan,
     @CurrentUser()
-    user: UserResponseDTO
+    user: UserEntity
   ) {
     return this.createCheckoutSessionUseCase.execute(user.id, plan);
   }
