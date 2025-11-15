@@ -1,6 +1,7 @@
 import {
   ForbiddenException,
   Inject,
+  Injectable,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
@@ -19,6 +20,7 @@ import { UpdatePetDto } from '@modules/pets/application/dto/update-pet.dto';
 
 import { PetMapper } from '@modules/pets/infrastructure/mappers/pet.mapper';
 
+@Injectable()
 export class UpdatePetUseCase {
   private readonly logger = new Logger(UpdatePetUseCase.name);
 
