@@ -70,4 +70,13 @@ export class PetRepositoryImpl implements IPetRepository {
       throw error;
     }
   }
+
+  async delete(petId: string): Promise<void> {
+    try {
+      await this.repository.delete(petId);
+    } catch (error: any) {
+      this.logger.error(`Error deleting pet ${petId}: ${error.message}`);
+      throw error;
+    }
+  }
 }

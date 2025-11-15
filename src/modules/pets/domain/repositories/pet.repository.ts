@@ -14,4 +14,6 @@ export interface IPetRepository {
   findById(petId: string): Promise<PetEntity | null>;
 
   findByOwnerId(ownerId: string): Promise<PetEntity[] | null>;
+
+  delete(petId: string): Promise<void>;
 }

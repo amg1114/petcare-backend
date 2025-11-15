@@ -2,6 +2,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -19,6 +20,7 @@ import { CreatePetDto } from '@modules/pets/application/dto/create-pet.dto';
 import { UpdatePetDto } from '@modules/pets/application/dto/update-pet.dto';
 import { GetPetUseCase } from '@modules/pets/application/use-cases/get-pet.usecase';
 import { CreatePetUseCase } from '@modules/pets/application/use-cases/create-pet.usecase';
+import { DeletePetUseCase } from '@modules/pets/application/use-cases/delete-pet.usecase';
 import { UpdatePetUseCase } from '@modules/pets/application/use-cases/update-pet.usecase';
 import { GetUserPetsUseCase } from '@modules/pets/application/use-cases/get-user-pets.usecase';
 
@@ -35,9 +37,10 @@ import { ApiGetUserPets } from '@modules/pets/presentation/decorators/api-get-us
 @ApiBearerAuth()
 export class PetsController {
   constructor(
-    private readonly createPetUseCase: CreatePetUseCase,
-    private readonly getUserPetsUseCase: GetUserPetsUseCase,
     private readonly getPetUseCase: GetPetUseCase,
+    private readonly createPetUseCase: CreatePetUseCase,
+    private readonly deletePetUseCase: DeletePetUseCase,
+    private readonly getUserPetsUseCase: GetUserPetsUseCase,
     private readonly updatePetUseCase: UpdatePetUseCase
   ) {}
 
@@ -79,5 +82,15 @@ export class PetsController {
     @Body() dto: UpdatePetDto
   ) {
     return this.updatePetUseCase.execute(user.id, petId, dto);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @RequiresSubscription(SubscriptionPlan.BASIC)
+  deletePet(
+    @Param('id', new ParseUUIDPipe()) petId: string,
+    @CurrentUser() user: UserEntity
+  ) {
+    return this.deletePetUseCase.execute(user, petId);
   }
 }
