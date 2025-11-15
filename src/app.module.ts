@@ -11,9 +11,8 @@ import { AuthModule } from '@modules/auth/auth.module';
 import { PetsModule } from '@modules/pets/pets.module';
 import { UsersModule } from '@modules/users/users.module';
 import { SharedModule } from '@modules/shared/shared.module';
+import { AppointmentsModule } from '@modules/appointments/appointments.module';
 import { SubscriptionsModule } from '@modules/subscriptions/subscriptions.module';
-
-import { ServicesModule } from './modules/services/services.module';
 
 @Module({
   imports: [
@@ -27,7 +26,7 @@ import { ServicesModule } from './modules/services/services.module';
     SharedModule,
     SubscriptionsModule,
     PetsModule,
-    ServicesModule,
+    AppointmentsModule,
   ],
 })
 export class AppModule {}
