@@ -14,6 +14,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
+import { UserEntity } from '@modules/users/domain/entities/user.entity';
+
 import { LoginDTO } from '@modules/auth/application/dto/login.dto';
 import { RegisterDTO } from '@modules/auth/application/dto/register.dto';
 import { LoginUseCase } from '@modules/auth/application/use-cases/login.usecase';
@@ -59,7 +61,7 @@ export class AuthController {
   @ApiOkResponse({ type: UserResponseDTO })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  profile(@CurrentUser() currentUser: UserResponseDTO) {
+  profile(@CurrentUser() currentUser: UserEntity) {
     return this.getUserUseCase.execute(currentUser.id);
   }
 }

@@ -1,9 +1,12 @@
-import { UserResponseDTO } from 'src/users/application/dto/user-response.dto';
+import { SubscriptionEntity } from 'src/modules/subscriptions/domain/entities/subscription.entity';
+
+import { UserEntity } from '@modules/users/domain/entities/user.entity';
 
 declare global {
   namespace Express {
     interface Request {
-      user: UserResponseDTO;
+      user: UserEntity;
+      subscription?: SubscriptionEntity;
     }
   }
 }

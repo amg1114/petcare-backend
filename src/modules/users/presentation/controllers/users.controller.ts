@@ -8,8 +8,9 @@ import {
   Patch,
 } from '@nestjs/common';
 
+import { UserEntity } from '@modules/users/domain/entities/user.entity';
+
 import { UpdateUserDTO } from '@modules/users/application/dto/update-user.dto';
-import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
 import { UpdatePasswordDTO } from '@modules/users/application/dto/update-password.dto';
 import { DeleteUserUseCase } from '@modules/users/application/use-cases/delete-user.usecase';
 import { UpdateUserUseCase } from '@modules/users/application/use-cases/update-user.usecase';
@@ -31,7 +32,7 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Update own user data' })
   async updateOwnUser(
-    @CurrentUser() currentUser: UserResponseDTO,
+    @CurrentUser() currentUser: UserEntity,
     @Body() dto: UpdateUserDTO
   ) {
     return this.updateUserUseCase.execute(currentUser.id, dto);
@@ -41,7 +42,7 @@ export class UsersController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Update own user Password' })
   async updatePassword(
-    @CurrentUser() currentUser: UserResponseDTO,
+    @CurrentUser() currentUser: UserEntity,
     @Body() dto: UpdatePasswordDTO
   ) {
     return this.updatePasswordUseCase.execute(currentUser.id, dto);
@@ -50,7 +51,7 @@ export class UsersController {
   @Delete('me')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete own user data' })
-  async deleteUser(@CurrentUser() currentUser: UserResponseDTO) {
+  async deleteUser(@CurrentUser() currentUser: UserEntity) {
     return this.deleteUserUseCase.execute(currentUser.id);
   }
 }
