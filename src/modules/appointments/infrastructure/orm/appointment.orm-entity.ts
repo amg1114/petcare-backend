@@ -18,7 +18,7 @@ export class AppointmentORMEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => PetORMEntity)
+  @OneToOne(() => PetORMEntity, { eager: true })
   @JoinColumn()
   pet: PetORMEntity;
 
