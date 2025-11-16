@@ -4,7 +4,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -18,7 +17,7 @@ export class AppointmentORMEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => PetORMEntity, { eager: true })
+  @ManyToOne(() => PetORMEntity, { eager: true })
   @JoinColumn()
   pet: PetORMEntity;
 
