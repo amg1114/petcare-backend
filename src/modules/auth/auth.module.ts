@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { GetUserUseCase } from '@modules/users/application/use-cases/get-user.usecase';
+import { GetUserUseCase } from '@modules/users/application/use-cases/users/get-user.usecase';
 
 import { UsersModule } from '@modules/users/users.module';
 import { SharedModule } from '@modules/shared/shared.module';

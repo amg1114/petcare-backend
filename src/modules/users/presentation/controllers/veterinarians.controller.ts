@@ -3,7 +3,7 @@ import { Controller, Get } from '@nestjs/common';
 
 import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
 
-import { GetVeterinariansUseCase } from '@modules/users/application/use-cases/get-veterinarians.usecase';
+import { GetVeterinariansUseCase } from '@modules/users/application/use-cases/veterinarians/get-veterinarians.usecase';
 
 import { RequiresSubscription } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
 

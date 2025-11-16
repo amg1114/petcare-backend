@@ -6,7 +6,7 @@ import {
   USER_REPOSITORY_TOKEN,
 } from '@modules/users/domain/repositories/user.repository';
 
-import { UpdatePasswordDTO } from '../dto/update-password.dto';
+import { UpdatePasswordDTO } from '../../dto/update-password.dto';
 
 @Injectable()
 export class UpdatePasswordUseCase {
