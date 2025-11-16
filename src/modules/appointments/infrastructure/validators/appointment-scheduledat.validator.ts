@@ -9,7 +9,7 @@ export function IsValidAppointmentScheduledAt() {
   return applyDecorators(
     IsNotEmpty({ message: 'Appointment scheduled is required' }),
     IsDate({ message: 'Appointment scheduled must be a valid date' }),
-    Type(() => String),
+    Type(() => Date),
     MinDate(minDate, {
       message: 'Appointment scheduled date cannot be in the past',
     })
