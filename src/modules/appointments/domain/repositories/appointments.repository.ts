@@ -18,9 +18,11 @@ export interface IAppointmentRepository {
     scheduledAt: Date
   ): Promise<AppointmentEntity[] | null>;
 
-  getUserPetAppointments(userId: string): Promise<AppointmentEntity[] | null>;
+  getUserPetUpcomingAppointments(
+    userId: string
+  ): Promise<AppointmentEntity[] | null>;
 
-  getVeterinarianAppointments(
+  getVeterinarianUpcomingAppointments(
     vetId: string
   ): Promise<AppointmentEntity[] | null>;
 

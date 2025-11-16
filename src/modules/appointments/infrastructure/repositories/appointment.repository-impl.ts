@@ -73,7 +73,7 @@ export class AppointmentRepositoryImpl implements IAppointmentRepository {
     }
   }
 
-  async getUserPetAppointments(
+  async getUserPetUpcomingAppointments(
     userId: string
   ): Promise<AppointmentEntity[] | null> {
     try {
@@ -83,7 +83,7 @@ export class AppointmentRepositoryImpl implements IAppointmentRepository {
           scheduledAt: MoreThanOrEqual(new Date()),
         },
         order: {
-          scheduledAt: 'DESC',
+          scheduledAt: 'ASC',
         },
       });
 
@@ -100,7 +100,7 @@ export class AppointmentRepositoryImpl implements IAppointmentRepository {
     }
   }
 
-  async getVeterinarianAppointments(
+  async getVeterinarianUpcomingAppointments(
     vetId: string
   ): Promise<AppointmentEntity[] | null> {
     try {
@@ -110,7 +110,7 @@ export class AppointmentRepositoryImpl implements IAppointmentRepository {
           scheduledAt: MoreThanOrEqual(new Date()),
         },
         order: {
-          scheduledAt: 'DESC',
+          scheduledAt: 'ASC',
         },
       });
 
