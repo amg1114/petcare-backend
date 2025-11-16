@@ -106,7 +106,7 @@ export class CreateAppointmentUseCase {
       );
     }
 
-    const veterinarian = await this.userRepository.findById(vetId);
+    const veterinarian = await this.userRepository.findVeterinarianById(vetId);
 
     if (!veterinarian) {
       throw new NotFoundException(
