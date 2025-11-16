@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger } from '@nestjs/common';
@@ -69,6 +69,60 @@ export class AppointmentRepositoryImpl implements IAppointmentRepository {
       this.logger.error(
         `Error finding appointment by veterinarian ID ${vetId} and date ${scheduledAt}: ${error.message}`
       );
+      throw error;
+    }
+  }
+
+  async getUserPetAppointments(
+    userId: string
+  ): Promise<AppointmentEntity[] | null> {
+    try {
+      const appointments = await this.repository.find({
+        where: {
+          pet: { owner: { id: userId } },
+          scheduledAt: MoreThanOrEqual(new Date()),
+        },
+        order: {
+          scheduledAt: 'DESC',
+        },
+      });
+
+      if (!appointments.length) return null;
+
+      return appointments.map(AppointmentMapper.toDomain);
+    } catch (error: any) {
+      this.logger.error(
+        `Error when getting user pet appointments for: ${userId}` +
+          error.message
+      );
+
+      throw error;
+    }
+  }
+
+  async getVeterinarianAppointments(
+    vetId: string
+  ): Promise<AppointmentEntity[] | null> {
+    try {
+      const appointments = await this.repository.find({
+        where: {
+          veterinarian: { id: vetId },
+          scheduledAt: MoreThanOrEqual(new Date()),
+        },
+        order: {
+          scheduledAt: 'DESC',
+        },
+      });
+
+      if (!appointments.length) return null;
+
+      return appointments.map(AppointmentMapper.toDomain);
+    } catch (error: any) {
+      this.logger.error(
+        `Error when getting veterinarian appointments for: ${vetId}` +
+          error.message
+      );
+
       throw error;
     }
   }
