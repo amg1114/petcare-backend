@@ -2,28 +2,28 @@ import { PetEntity } from '@modules/pets/domain/entities/pet.entity';
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import { ServiceType } from '@modules/appointments/domain/value-objects/service-type.vo';
 
-interface ApointmentEntityProps {
+interface AppointmentEntityProps {
   id: string;
   pet: PetEntity;
   scheduledAt: Date;
   serviceType: ServiceType;
   veterinarian: UserEntity;
   duration: number;
-  notes: string;
+  notes?: string;
   createdAt?: Date;
 }
 
-export class ApointmentEntity {
+export class AppointmentEntity {
   id: string;
   pet: PetEntity;
   scheduledAt: Date;
   serviceType: ServiceType;
   veterinarian?: UserEntity;
   duration: number;
-  notes: string | null;
+  notes?: string;
   createdAt?: Date;
 
-  private constructor(props: ApointmentEntityProps) {
+  private constructor(props: AppointmentEntityProps) {
     this.id = props.id;
     this.pet = props.pet;
     this.scheduledAt = props.scheduledAt;
@@ -34,19 +34,19 @@ export class ApointmentEntity {
     this.createdAt = props.createdAt;
   }
 
-  static create(props: Omit<ApointmentEntityProps, 'id' | 'createdAt'>) {
-    return new ApointmentEntity({
+  static create(props: Omit<AppointmentEntityProps, 'id' | 'createdAt'>) {
+    return new AppointmentEntity({
       ...props,
       id: undefined,
       createdAt: new Date(),
     });
   }
 
-  static reconstitute(props: ApointmentEntityProps) {
+  static reconstitute(props: AppointmentEntityProps) {
     if (!props.id) {
       throw new Error('ID is required to reconstitute an appointment');
     }
 
-    return new ApointmentEntity(props);
+    return new AppointmentEntity(props);
   }
 }
