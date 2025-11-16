@@ -52,6 +52,27 @@ export class AppointmentRepositoryImpl implements IAppointmentRepository {
     }
   }
 
+  async findByVetIdAndDate(
+    vetId: string,
+    scheduledAt: Date
+  ): Promise<AppointmentEntity[] | null> {
+    try {
+      const appointments = await this.repository.find({
+        where: { veterinarian: { id: vetId }, scheduledAt: scheduledAt },
+        order: { scheduledAt: 'ASC' },
+      });
+
+      if (!appointments) return null;
+
+      return appointments.map(AppointmentMapper.toDomain);
+    } catch (error: any) {
+      this.logger.error(
+        `Error finding appointment by veterinarian ID ${vetId} and date ${scheduledAt}: ${error.message}`
+      );
+      throw error;
+    }
+  }
+
   async delete(appointmentId: string): Promise<void> {
     try {
       await this.repository.delete(appointmentId);
