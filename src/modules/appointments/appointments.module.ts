@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { APPOINTMENT_REPOSITORY_TOKEN } from '@modules/appointments/domain/repositories/appointments.repository';
 
 import { CreateAppointmentUseCase } from '@modules/appointments/application/use-cases/create-appointment.usecase.dto';
+import { GetUserAppointmentsUseCase } from '@modules/appointments/application/use-cases/get-user-appointments.usecase.dto';
 
 import { AppointmentORMEntity } from '@modules/appointments/infrastructure/orm/appointment.orm-entity';
 import { AppointmentRepositoryImpl } from '@modules/appointments/infrastructure/repositories/appointment.repository-impl';
@@ -25,6 +26,7 @@ import { UsersModule } from '@modules/users/users.module';
       useClass: AppointmentRepositoryImpl,
     },
     CreateAppointmentUseCase,
+    GetUserAppointmentsUseCase,
   ],
   exports: [APPOINTMENT_REPOSITORY_TOKEN],
   controllers: [AppointmentsController],
