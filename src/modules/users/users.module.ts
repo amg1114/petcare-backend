@@ -3,6 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { USER_REPOSITORY_TOKEN } from '@modules/users/domain/repositories/user.repository';
 
+import { GetVeterinariansUseCase } from '@modules/users/application/use-cases/get-veterinarians.usecase';
+
+import { VeterinariansController } from '@modules/users/presentation/controllers/veterinarians.controller';
+
 import { SharedModule } from '@modules/shared/shared.module';
 
 import { UserORMEntity } from './infrastructure/orm/user.orm-entity';
@@ -24,8 +28,9 @@ import { UpdatePasswordUseCase } from './application/use-cases/update-password.u
     DeleteUserUseCase,
     GetUserUseCase,
     UpdatePasswordUseCase,
+    GetVeterinariansUseCase,
   ],
-  controllers: [UsersController],
+  controllers: [UsersController, VeterinariansController],
   exports: ['UserRepository'],
 })
 export class UsersModule {}
