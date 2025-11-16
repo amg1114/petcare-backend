@@ -1,16 +1,20 @@
 import { Repository } from 'typeorm';
 
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import { IUserRepository } from '@modules/users/domain/repositories/user.repository';
+import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/subscription-plan.vo';
+import { SubscriptionStatus } from '@modules/subscriptions/domain/value-objects/subscription-status.vo';
 
 import { UserMapper } from '../mappers/user.mapper';
 import { UserORMEntity } from '../orm/user.orm-entity';
 
 @Injectable()
 export class UserORMRepository implements IUserRepository {
+  private logger = new Logger(UserORMRepository.name);
+
   constructor(
     @InjectRepository(UserORMEntity)
     private readonly userRepository: Repository<UserORMEntity>
@@ -38,6 +42,51 @@ export class UserORMRepository implements IUserRepository {
 
     if (!user) return null;
     return UserMapper.toDomain(user);
+  }
+
+  async getVeterinarians(): Promise<UserEntity[] | null> {
+    try {
+      const veterinarians = await this.userRepository.find({
+        where: {
+          subscriptions: {
+            status: SubscriptionStatus.ACTIVE,
+            plan: SubscriptionPlan.PROFESSIONAL,
+          },
+        },
+      });
+
+      if (!veterinarians.length) return null;
+
+      return veterinarians.map(UserMapper.toDomain);
+    } catch (error: any) {
+      this.logger.error(`Error when getting veterinarians:` + error.message);
+
+      throw error;
+    }
+  }
+
+  async findVeterinarianById(id: string): Promise<UserEntity | null> {
+    try {
+      const veterinarian = await this.userRepository.findOne({
+        where: {
+          id,
+          subscriptions: {
+            status: SubscriptionStatus.ACTIVE,
+            plan: SubscriptionPlan.PROFESSIONAL,
+          },
+        },
+      });
+
+      if (!veterinarian) return null;
+
+      return UserMapper.toDomain(veterinarian);
+    } catch (error: any) {
+      this.logger.error(
+        `Error when finding a veterinarian with ID ${id}:` + error.message
+      );
+
+      throw error;
+    }
   }
 
   /**
