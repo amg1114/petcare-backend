@@ -12,9 +12,9 @@ import { UserEntity } from '@modules/users/domain/entities/user.entity';
 
 import { UpdateUserDTO } from '@modules/users/application/dto/update-user.dto';
 import { UpdatePasswordDTO } from '@modules/users/application/dto/update-password.dto';
-import { DeleteUserUseCase } from '@modules/users/application/use-cases/delete-user.usecase';
-import { UpdateUserUseCase } from '@modules/users/application/use-cases/update-user.usecase';
-import { UpdatePasswordUseCase } from '@modules/users/application/use-cases/update-password.usecase';
+import { DeleteUserUseCase } from '@modules/users/application/use-cases/users/delete-user.usecase';
+import { UpdateUserUseCase } from '@modules/users/application/use-cases/users/update-user.usecase';
+import { UpdatePasswordUseCase } from '@modules/users/application/use-cases/users/update-password.usecase';
 
 import { CurrentUser } from '@modules/auth/infrastructure/decorators/current-user.decorator';
 

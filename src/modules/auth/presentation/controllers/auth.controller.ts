@@ -22,7 +22,7 @@ import { LoginUseCase } from '@modules/auth/application/use-cases/login.usecase'
 import { AuthResponseDTO } from '@modules/auth/application/dto/auth-response.dto';
 import { UserResponseDTO } from '@modules/users/application/dto/user-response.dto';
 import { RegisterUseCase } from '@modules/auth/application/use-cases/register.usecase';
-import { GetUserUseCase } from '@modules/users/application/use-cases/get-user.usecase';
+import { GetUserUseCase } from '@modules/users/application/use-cases/users/get-user.usecase';
 
 import { JwtAuthGuard } from '@modules/auth/infrastructure/guards/jwt.guard';
 import { CurrentUser } from '@modules/auth/infrastructure/decorators/current-user.decorator';

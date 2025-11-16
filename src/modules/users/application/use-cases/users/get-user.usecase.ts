@@ -7,7 +7,7 @@ import {
 
 import { UserMapper } from '@modules/users/infrastructure/mappers/user.mapper';
 
-import { UserResponseDTO } from '../dto/user-response.dto';
+import { UserResponseDTO } from '../../dto/user-response.dto';
 
 @Injectable()
 export class GetUserUseCase {
