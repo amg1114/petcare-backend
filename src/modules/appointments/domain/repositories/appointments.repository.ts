@@ -10,6 +10,13 @@ export const APPOINTMENT_REPOSITORY_TOKEN = 'AppointmentRepository';
  */
 export interface IAppointmentRepository {
   save(appointment: AppointmentEntity): Promise<AppointmentEntity>;
+
   findById(appointmentId: string): Promise<AppointmentEntity | null>;
+
+  findByVetIdAndDate(
+    vetId: string,
+    scheduledAt: Date
+  ): Promise<AppointmentEntity[] | null>;
+
   delete(appointmentId: string): Promise<void>;
 }
