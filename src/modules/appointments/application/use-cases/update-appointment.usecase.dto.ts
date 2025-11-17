@@ -2,7 +2,6 @@ import {
   BadRequestException,
   ForbiddenException,
   Inject,
-  Injectable,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
@@ -11,12 +10,12 @@ import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import { AppointmentEntity } from '@modules/appointments/domain/entities/appointment.entity';
 import { ServiceDuration } from '@modules/appointments/domain/value-objects/service-duration.vo';
 import {
-  IPetRepository,
   PET_REPOSITORY_TOKEN,
+  IPetRepository,
 } from '@modules/pets/domain/repositories/pet.repository';
 import {
-  IUserRepository,
   USER_REPOSITORY_TOKEN,
+  IUserRepository,
 } from '@modules/users/domain/repositories/user.repository';
 import {
   ServiceType,
@@ -28,13 +27,12 @@ import {
   IAppointmentRepository,
 } from '@modules/appointments/domain/repositories/appointments.repository';
 
-import { CreateAppointmentDTO } from '@modules/appointments/application/dto/create-appointment.dto';
+import { UpdateAppointmentDTO } from '@modules/appointments/application/dto/update-appointment.dto';
 
 import { AppointmentMapper } from '@modules/appointments/infrastructure/mappers/appointment.mapper';
 
-@Injectable()
-export class CreateAppointmentUseCase {
-  private logger = new Logger(CreateAppointmentUseCase.name);
+export class UpdateAppointmentUseCase {
+  private logger = new Logger(UpdateAppointmentUseCase.name);
 
   constructor(
     @Inject(PET_REPOSITORY_TOKEN)
@@ -45,26 +43,27 @@ export class CreateAppointmentUseCase {
     private readonly appointmentRepository: IAppointmentRepository
   ) {}
 
-  async execute(user: UserEntity, dto: CreateAppointmentDTO) {
-    this.logger.log(`Creating a new appointment for pet ${dto.petId}`);
+  async execute(
+    user: UserEntity,
+    appointmentId: string,
+    dto: UpdateAppointmentDTO
+  ) {
+    this.logger.log(`Updating appointment with ID: ${appointmentId}`);
 
-    const pet = await this.petRepository.findById(dto.petId);
+    let appointment = await this.appointmentRepository.findById(appointmentId);
 
-    if (!pet) {
-      this.logger.error(
-        `Pet with id: ${dto.petId} was not found when creating an appointment`
+    if (!appointment) {
+      throw new NotFoundException(
+        `No appointment was found with the ID: ${appointmentId}`
       );
-
-      throw new NotFoundException(`Pet with ID: ${dto.petId} was not found`);
     }
 
-    if (!pet.isOwner(user)) {
+    if (!appointment.isOwner(user)) {
       this.logger.warn(
-        `User with id ${user.id} was trying to delete the pet with ID ${dto.petId}`
+        `The user with ID ${user.id} was trying to update the appointment ${appointment.id}`
       );
-
       throw new ForbiddenException(
-        `You don't have permissions to create an appointment for this pet`
+        `You don't have permissions to update this appointment`
       );
     }
 
@@ -77,15 +76,16 @@ export class CreateAppointmentUseCase {
       await this.validateVeterinarianAvailability(
         veterinarian.id,
         dto.scheduledAt,
-        duration
+        duration,
+        appointment.id
       );
     }
 
-    let appointment = AppointmentEntity.create({
+    appointment = AppointmentEntity.reconstitute({
+      ...appointment,
       ...dto,
-      pet,
-      veterinarian,
       duration,
+      veterinarian,
     });
 
     appointment = await this.appointmentRepository.save(appointment);
@@ -118,10 +118,17 @@ export class CreateAppointmentUseCase {
   private async validateVeterinarianAvailability(
     vetId: string,
     scheduledAt: Date,
-    duration: number
+    duration: number,
+    excludeAppointmentId?: string
   ) {
-    const existingAppointments =
+    let existingAppointments =
       await this.appointmentRepository.findByVetIdAndDate(vetId, scheduledAt);
+
+    if (excludeAppointmentId) {
+      existingAppointments = existingAppointments.filter(
+        (appt) => appt.id !== excludeAppointmentId
+      );
+    }
 
     const conflicts =
       VeterinarianAvailabilityService.getConflictingAppointments(
