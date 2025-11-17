@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { APPOINTMENT_REPOSITORY_TOKEN } from '@modules/appointments/domain/repositories/appointments.repository';
 
+import { DeleteAppointmentUseCase } from '@modules/appointments/application/use-cases/delete-appointment.usecase';
 import { CreateAppointmentUseCase } from '@modules/appointments/application/use-cases/create-appointment.usecase.dto';
 import { UpdateAppointmentUseCase } from '@modules/appointments/application/use-cases/update-appointment.usecase.dto';
 import { GetUserAppointmentsUseCase } from '@modules/appointments/application/use-cases/get-user-appointments.usecase.dto';
@@ -29,6 +30,7 @@ import { UsersModule } from '@modules/users/users.module';
     CreateAppointmentUseCase,
     GetUserAppointmentsUseCase,
     UpdateAppointmentUseCase,
+    DeleteAppointmentUseCase,
   ],
   exports: [APPOINTMENT_REPOSITORY_TOKEN],
   controllers: [AppointmentsController],
