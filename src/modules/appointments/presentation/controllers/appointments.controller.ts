@@ -9,6 +9,7 @@ import {
   Patch,
   Param,
   ParseUUIDPipe,
+  Delete,
 } from '@nestjs/common';
 
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
@@ -17,6 +18,7 @@ import { SubscriptionPlan } from '@modules/subscriptions/domain/value-objects/su
 
 import { CreateAppointmentDTO } from '@modules/appointments/application/dto/create-appointment.dto';
 import { UpdateAppointmentDTO } from '@modules/appointments/application/dto/update-appointment.dto';
+import { DeleteAppointmentUseCase } from '@modules/appointments/application/use-cases/delete-appointment.usecase';
 import { CreateAppointmentUseCase } from '@modules/appointments/application/use-cases/create-appointment.usecase.dto';
 import { UpdateAppointmentUseCase } from '@modules/appointments/application/use-cases/update-appointment.usecase.dto';
 import { GetUserAppointmentsUseCase } from '@modules/appointments/application/use-cases/get-user-appointments.usecase.dto';
@@ -26,6 +28,7 @@ import { CurrentSubscription } from '@modules/subscriptions/infrastructure/decor
 import { RequiresSubscription } from '@modules/subscriptions/infrastructure/decorators/requires-subscription.decorator';
 
 import { ApiCreateAppointment } from '@modules/appointments/presentation/decorator/api-create-appointment.decorator';
+import { ApiDeleteAppointment } from '@modules/appointments/presentation/decorator/api-delete-appointment.decorator';
 import { ApiUpdateAppointment } from '@modules/appointments/presentation/decorator/api-update-appointment.decorator';
 import { ApiGetUserAppointments } from '@modules/appointments/presentation/decorator/api-get-user-appointments.decorator';
 
@@ -35,7 +38,8 @@ export class AppointmentsController {
   constructor(
     private readonly createAppointmentUseCase: CreateAppointmentUseCase,
     private readonly getUserAppointmentUseCase: GetUserAppointmentsUseCase,
-    private readonly updateAppointmentUseCase: UpdateAppointmentUseCase
+    private readonly updateAppointmentUseCase: UpdateAppointmentUseCase,
+    private readonly deleteAppointmentUseCase: DeleteAppointmentUseCase
   ) {}
 
   @Post()
@@ -68,5 +72,16 @@ export class AppointmentsController {
     @Body() dto: UpdateAppointmentDTO
   ) {
     return this.updateAppointmentUseCase.execute(user, id, dto);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @RequiresSubscription(SubscriptionPlan.BASIC)
+  @ApiDeleteAppointment()
+  deleteAppointment(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @CurrentUser() user: UserEntity
+  ) {
+    return this.deleteAppointmentUseCase.execute(user, id);
   }
 }
