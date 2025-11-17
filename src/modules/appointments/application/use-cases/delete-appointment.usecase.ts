@@ -3,6 +3,7 @@ import {
   Inject,
   NotFoundException,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
 
 import { UserEntity } from '@modules/users/domain/entities/user.entity';
@@ -39,6 +40,15 @@ export class DeleteAppointmentUseCase {
       );
       throw new ForbiddenException(
         `You don't have permissions to delete this appointment`
+      );
+    }
+
+    if (!appointment.canBeDeleted()) {
+      this.logger.warn(
+        `User ${user.id} tried to delete appointment ${appointmentId} within 24 hours of scheduled time`
+      );
+      throw new BadRequestException(
+        `Appointments cannot be deleted within 24 hours of the scheduled time`
       );
     }
 

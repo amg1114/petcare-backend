@@ -61,6 +61,15 @@ export class UpdateAppointmentUseCase {
       );
     }
 
+    if (!appointment.canBeReScheduled()) {
+      this.logger.warn(
+        `User ${user.id} tried to update appointment ${appointmentId} within 24 hours of scheduled time`
+      );
+      throw new BadRequestException(
+        `Appointments cannot be rescheduled within 24 hours of the scheduled time`
+      );
+    }
+
     const duration = ServiceDuration.fromService(dto.serviceType);
     let veterinarian: UserEntity | undefined;
 
