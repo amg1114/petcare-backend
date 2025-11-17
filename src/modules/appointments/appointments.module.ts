@@ -7,11 +7,13 @@ import { DeleteAppointmentUseCase } from '@modules/appointments/application/use-
 import { CreateAppointmentUseCase } from '@modules/appointments/application/use-cases/create-appointment.usecase.dto';
 import { UpdateAppointmentUseCase } from '@modules/appointments/application/use-cases/update-appointment.usecase.dto';
 import { GetUserAppointmentsUseCase } from '@modules/appointments/application/use-cases/get-user-appointments.usecase.dto';
+import { GetVeterinarianAvailabilityUseCase } from '@modules/appointments/application/use-cases/get-veterinarian-availability.usecase';
 
 import { AppointmentORMEntity } from '@modules/appointments/infrastructure/orm/appointment.orm-entity';
 import { AppointmentRepositoryImpl } from '@modules/appointments/infrastructure/repositories/appointment.repository-impl';
 
 import { AppointmentsController } from '@modules/appointments/presentation/controllers/appointments.controller';
+import { VeterinariansController } from '@modules/appointments/presentation/controllers/veterinarians.controller';
 
 import { PetsModule } from '@modules/pets/pets.module';
 import { UsersModule } from '@modules/users/users.module';
@@ -31,8 +33,9 @@ import { UsersModule } from '@modules/users/users.module';
     GetUserAppointmentsUseCase,
     UpdateAppointmentUseCase,
     DeleteAppointmentUseCase,
+    GetVeterinarianAvailabilityUseCase,
   ],
   exports: [APPOINTMENT_REPOSITORY_TOKEN],
-  controllers: [AppointmentsController],
+  controllers: [AppointmentsController, VeterinariansController],
 })
 export class AppointmentsModule {}
