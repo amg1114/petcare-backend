@@ -49,4 +49,8 @@ export class AppointmentEntity {
 
     return new AppointmentEntity(props);
   }
+
+  isOwner(user: UserEntity) {
+    return this.pet.isOwner(user);
+  }
 }

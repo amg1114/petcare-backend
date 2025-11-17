@@ -6,3 +6,8 @@ export enum ServiceType {
   TRANSPORTATION = 'PET TRANSPORTATION',
   MEDICALREVIEW = 'MEDICAL REVIEW',
 }
+
+export const VETERINARIAN_SERVICES = [
+  ServiceType.MEDICALREVIEW,
+  ServiceType.FOLLOWUP,
+];
