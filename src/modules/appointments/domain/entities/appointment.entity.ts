@@ -53,4 +53,18 @@ export class AppointmentEntity {
   isOwner(user: UserEntity) {
     return this.pet.isOwner(user);
   }
+
+  canBeDeleted(): boolean {
+    const now = new Date();
+    const hoursUntil =
+      (this.scheduledAt.getTime() - now.getTime()) / (1000 * 60 * 60);
+    return hoursUntil >= 24;
+  }
+
+  canBeReScheduled(): boolean {
+    const now = new Date();
+    const hoursUntil =
+      (this.scheduledAt.getTime() - now.getTime()) / (1000 * 60 * 60);
+    return hoursUntil >= 24;
+  }
 }
