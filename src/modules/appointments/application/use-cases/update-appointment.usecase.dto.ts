@@ -10,10 +10,6 @@ import { UserEntity } from '@modules/users/domain/entities/user.entity';
 import { AppointmentEntity } from '@modules/appointments/domain/entities/appointment.entity';
 import { ServiceDuration } from '@modules/appointments/domain/value-objects/service-duration.vo';
 import {
-  PET_REPOSITORY_TOKEN,
-  IPetRepository,
-} from '@modules/pets/domain/repositories/pet.repository';
-import {
   USER_REPOSITORY_TOKEN,
   IUserRepository,
 } from '@modules/users/domain/repositories/user.repository';
@@ -35,8 +31,6 @@ export class UpdateAppointmentUseCase {
   private logger = new Logger(UpdateAppointmentUseCase.name);
 
   constructor(
-    @Inject(PET_REPOSITORY_TOKEN)
-    private readonly petRepository: IPetRepository,
     @Inject(USER_REPOSITORY_TOKEN)
     private readonly userRepository: IUserRepository,
     @Inject(APPOINTMENT_REPOSITORY_TOKEN)
